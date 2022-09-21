@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="526.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.zerui.csproject.Controller.MenuController">
+    <top>
+        <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="600.0" style="-fx-border-color: 000000;">
+            <children>
+                <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="0.0" style="-fx-background-color: 000000;">
+                    <graphic>
+                        <ImageView fitHeight="18.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../../images/Home.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </children>
+        </HBox>
+    </top>
+    <center>
+
+    </center>
+   <center>
+      <ScrollPane prefHeight="476.0" prefWidth="322.0" BorderPane.alignment="CENTER">
+         <content>
+            <VBox fx:id="postScroll" prefWidth="348.0" />
+         </content>
+      </ScrollPane>
+   </center>
+   <right>
+      <Pane prefHeight="476.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </right>
+   <left>
+      <Pane prefHeight="476.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </left>
+</BorderPane>
