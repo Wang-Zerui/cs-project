@@ -102,6 +102,13 @@ public class Firebase {
         } catch (FirebaseAuthException ignore) {}
     }
     public static void downloadToAppdata(String blob) {
-//        Utils.path;
+        // TODO
+    }
+    public static boolean resetPassword(String email) {
+        try {
+            Mail.sendMessage("Reset your email with this link!", auth.generatePasswordResetLink(email), email);
+            return true;
+        } catch (FirebaseAuthException ignore) { return false; }
+
     }
 }

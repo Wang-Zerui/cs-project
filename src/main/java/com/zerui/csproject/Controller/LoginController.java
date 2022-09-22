@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import org.apache.commons.validator.routines.EmailValidator;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -52,6 +53,21 @@ public class LoginController {
         signUpStage.setTitle("Hello!");
         signUpStage.setScene(scene);
         signUpStage.show();
+    }
+
+    @FXML
+    protected void resetPassword() {
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Reset password");
+        dialog.setHeaderText("Enter details");
+        dialog.setContentText("Email:");
+        Optional<String> result = dialog.showAndWait();
+        result.ifPresent(email -> {
+            if (EmailValidator.getInstance().isValid(email))
+            if (Firebase.resetPassword(email)) new Alert(Alert.AlertType.INFORMATION, "Email verification link sent!").showAndWait();
+            else new Alert(Alert.AlertType.ERROR, "Email does not exist!").showAndWait();
+            else new Alert(Alert.AlertType.ERROR, "Invalid email!").showAndWait();
+        });
     }
 
 }

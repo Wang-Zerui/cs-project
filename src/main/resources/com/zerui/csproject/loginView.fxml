@@ -43,7 +43,7 @@
             </Button>
             <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="26.0" prefWidth="100.0" text="Forgot Password" VBox.vgrow="ALWAYS" />
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#resetPassword" prefHeight="26.0" prefWidth="100.0" text="Forgot Password" VBox.vgrow="ALWAYS" />
                   <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#signUp" prefHeight="26.0" prefWidth="99.0" text="Sign Up" VBox.vgrow="ALWAYS" />
                </children>
             </VBox>
