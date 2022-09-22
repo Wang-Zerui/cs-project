@@ -1,6 +1,7 @@
 package com.zerui.csproject.Controller;
 
 import com.zerui.csproject.Model.Personal.User;
+import com.zerui.csproject.Model.Utils.Firebase;
 import com.zerui.csproject.SplashScreen;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +12,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Objects;
+import java.util.Optional;
 
 public class LoginController {
     static Stage signUpStage;
@@ -20,12 +22,21 @@ public class LoginController {
     PasswordField password;
     @FXML
     protected void login() throws IOException {
-        if (User.login(email.getText(), password.getText())) {
+        int status = User.login(email.getText(), password.getText());
+        if (status==2) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "Success");
             alert.showAndWait();
             Pane p = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/zerui/csproject/menuView.fxml")));
             SplashScreen.getStage().setScene(new Scene(p));
-
+        } else if (status == 1) {
+            ButtonType ok = new ButtonType("Ok", ButtonBar.ButtonData.CANCEL_CLOSE);
+            ButtonType resendEmail = new ButtonType("Resend Email", ButtonBar.ButtonData.OK_DONE);
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Please verify your email!", ok, resendEmail);
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.orElse(ok)==resendEmail) {
+                Firebase.sendVerificationEmail(email.getText());
+                new Alert(Alert.AlertType.INFORMATION, "Sent email!").showAndWait();
+            }
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Wrong email or password!");
             alert.show();
@@ -35,7 +46,6 @@ public class LoginController {
     @FXML
     protected void signUp() throws IOException {
         Pane p = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/zerui/csproject/signUpView.fxml")));
-
         Scene scene = new Scene(p, 300, 500);
         signUpStage = new Stage();
         signUpStage.setScene(scene);

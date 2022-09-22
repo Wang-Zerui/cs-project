@@ -66,8 +66,6 @@ public class Firebase {
                 .setUid(profileUUID)
                 .setDisplayName(username);
         auth.createUser(createRequest);
-        String link = auth.generateEmailVerificationLink(email);
-        Mail.sendMessage("Verify your email signup using link!", link, email);
     }
     public static String getName(String userHash) {
         try {
@@ -93,5 +91,15 @@ public class Firebase {
         try {
             WebManager.sendPOST(email, password);
         } catch (IOException ignored) {}
+    }
+    public static boolean isVerified(String email) {
+        try {
+            return auth.getUserByEmail(email).isEmailVerified();
+        } catch (FirebaseAuthException e) { return false; }
+    }
+    public static void sendVerificationEmail(String email) {
+        try {
+            Mail.sendMessage("Verify your email signup using link!", auth.generateEmailVerificationLink(email), email);
+        } catch (FirebaseAuthException ignore) {}
     }
 }
