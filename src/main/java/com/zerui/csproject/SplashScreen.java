@@ -1,7 +1,7 @@
 package com.zerui.csproject;
 
-import com.zerui.csproject.Model.Utils.Firebase;
-import com.zerui.csproject.Model.Utils.Mail;
+import com.zerui.csproject.Utils.Firebase;
+import com.zerui.csproject.Utils.Mail;
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -34,12 +34,7 @@ public class SplashScreen extends Application {
     private static Stage stage;
 
     public static void main(String[] args) {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                stage = new Stage();
-            }
-        });
+        Platform.runLater(() -> stage = new Stage());
         launch(args);
     }
 

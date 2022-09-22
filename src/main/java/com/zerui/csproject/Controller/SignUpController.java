@@ -1,7 +1,7 @@
 package com.zerui.csproject.Controller;
 
 import com.google.firebase.auth.FirebaseAuthException;
-import com.zerui.csproject.Model.Utils.Firebase;
+import com.zerui.csproject.Utils.Firebase;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
@@ -11,13 +11,14 @@ import javafx.stage.FileChooser;
 import javafx.scene.image.ImageView;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
 import org.apache.commons.validator.routines.EmailValidator;
 
 public class SignUpController {
-    File imageSel;
+    File imageSel = new File(String.valueOf(getClass().getResource("src/main/resources/images/noprofile.png")));
     @FXML
     TextField name, username, email;
     @FXML
@@ -38,18 +39,15 @@ public class SignUpController {
         } else if (!Pattern.compile("^.{6,15}$").matcher(password.getText()).matches()) {
             new Alert(Alert.AlertType.ERROR, "Password must be between 6 to 10 characters!").showAndWait();
         } else {
-            System.out.println(Firebase.genHash(username.getText(), password.getText()));
             String uuid = Firebase.genUUID();
-            if (imageSel!=null) {
-                Firebase.uploadFile(imageSel, "userprofile/"+uuid+".png");
-            }
+            URL url = Firebase.uploadFile(imageSel, "userprofile/"+uuid+".png");
             try {
-                Firebase.createAccount(name.getText(), username.getText(), password.getText(), email.getText(), uuid);
+                Firebase.createAccount(name.getText(), username.getText(), password.getText(), email.getText(), uuid, url);
                 new Alert(Alert.AlertType.INFORMATION, "Success! Check your email for an email verification link!").showAndWait();
                 LoginController.signUpStage.close();
             } catch (FirebaseAuthException e) {
                 new Alert(Alert.AlertType.ERROR, "Email already taken!").showAndWait();
-                System.out.println(e.toString());
+                System.out.println(e);
             }
 
         }

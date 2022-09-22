@@ -1,4 +1,4 @@
-package com.zerui.csproject.Model.Utils;
+package com.zerui.csproject.Utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 

@@ -1,8 +1,6 @@
 package com.zerui.csproject;
 
 import com.google.firebase.auth.FirebaseAuthException;
-import com.zerui.csproject.Model.Utils.Firebase;
-import com.zerui.csproject.Model.Utils.WebManager;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;

@@ -1,4 +1,4 @@
-package com.zerui.csproject.Model.Utils;
+package com.zerui.csproject.Utils;
 
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.*;
@@ -16,8 +16,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.security.MessageDigest;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 public class Firebase {
     public static Bucket bucket;
@@ -51,21 +53,22 @@ public class Firebase {
         } catch (Exception ignored) {}
         return false;
     }
-    public static void createAccount(String name, String username, String password, String email, String profileUUID) throws FirebaseAuthException {
-        Map<String, Object> docData = new HashMap<>();
-        docData.put("name", name);
-        docData.put("email", email);
-        db.document("users/"+genHash(username, password)).set(docData);
-        Map<String, Object> regArray = new HashMap<>();
-        regArray.put("nameList", new ArrayList<>(List.of(username)));
-        db.collection("registered").document("username").set(regArray, SetOptions.merge());
+    public static void createAccount(String name, String username, String password, String email, String UUID, URL profileImageURL) throws FirebaseAuthException {
         UserRecord.CreateRequest createRequest = new UserRecord.CreateRequest()
                 .setEmail(email)
                 .setPassword(password)
                 .setEmailVerified(false)
-                .setUid(profileUUID)
-                .setDisplayName(username);
+                .setUid(UUID)
+                .setDisplayName(username)
+                .setPhotoUrl(profileImageURL.toString());
         auth.createUser(createRequest);
+        Map<String, Object> docData = new HashMap<>();
+        Map<String, Object> regArray = new HashMap<>();
+        regArray.put("nameList", new ArrayList<>(List.of(username)));
+        docData.put("name", name);
+        docData.put("email", email);
+        db.collection("registered").document("username").set(regArray, SetOptions.merge());
+        db.document("users/"+genHash(username, password)).set(docData);
     }
     public static String getName(String userHash) {
         try {
@@ -80,17 +83,13 @@ public class Firebase {
         } catch (Exception ignored) {}
         return "";
     }
-    public static void uploadFile(File file, String path) throws IOException {
+    public static URL uploadFile(File file, String path) throws IOException {
         InputStream inputStream = new FileInputStream(file);
         Blob b = bucket.create(path, inputStream, Bucket.BlobWriteOption.userProject("cs-project-60a27"));
+        return b.signUrl(3650, TimeUnit.DAYS);
     }
     public static String genUUID() {
         return UUID.randomUUID().toString();
-    }
-    public static void loginAPI(String email, String password) {
-        try {
-            WebManager.sendPOST(email, password);
-        } catch (IOException ignored) {}
     }
     public static boolean isVerified(String email) {
         try {
@@ -101,5 +100,8 @@ public class Firebase {
         try {
             Mail.sendMessage("Verify your email signup using link!", auth.generateEmailVerificationLink(email), email);
         } catch (FirebaseAuthException ignore) {}
+    }
+    public static void downloadToAppdata(String blob) {
+//        Utils.path;
     }
 }

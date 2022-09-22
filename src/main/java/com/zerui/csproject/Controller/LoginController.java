@@ -1,7 +1,7 @@
 package com.zerui.csproject.Controller;
 
 import com.zerui.csproject.Model.Personal.User;
-import com.zerui.csproject.Model.Utils.Firebase;
+import com.zerui.csproject.Utils.Firebase;
 import com.zerui.csproject.SplashScreen;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

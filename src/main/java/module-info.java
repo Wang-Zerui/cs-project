@@ -15,6 +15,7 @@ module com.zerui.csproject.Model {
     requires com.fasterxml.jackson.core;
     requires com.fasterxml.jackson.databind;
     requires commons.validator;
+    requires net.harawata.appdirs;
     opens com.zerui.csproject.Controller to javafx.fxml;
     exports com.zerui.csproject;
 }

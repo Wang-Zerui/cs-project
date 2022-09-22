@@ -1,5 +1,5 @@
 package com.zerui.csproject.Model.Personal;
-import com.zerui.csproject.Model.Utils.Firebase;
+import com.zerui.csproject.Utils.Firebase;
 
 public class User extends Account {
     private static boolean isLogin;

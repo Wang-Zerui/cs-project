@@ -1,4 +1,4 @@
-package com.zerui.csproject.Model.Utils;
+package com.zerui.csproject.Utils;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;

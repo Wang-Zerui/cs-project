@@ -1,6 +1,6 @@
 package com.zerui.csproject.Controller;
 
-import com.zerui.csproject.Model.Utils.Utils;
+import com.zerui.csproject.Utils.Utils;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;

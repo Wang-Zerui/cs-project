@@ -25,7 +25,6 @@
             <artifactId>javafx-fxml</artifactId>
             <version>17.0.1</version>
         </dependency>
-
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
@@ -67,6 +66,11 @@
             <groupId>commons-validator</groupId>
             <artifactId>commons-validator</artifactId>
             <version>1.7</version>
+        </dependency>
+        <dependency>
+            <groupId>net.harawata</groupId>
+            <artifactId>appdirs</artifactId>
+            <version>1.2.1</version>
         </dependency>
     </dependencies>
     <build>
