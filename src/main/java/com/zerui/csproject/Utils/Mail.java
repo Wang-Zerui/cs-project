@@ -29,7 +29,7 @@ public class Mail {
             msg.setSubject(subject);
             msg.setText(message);
             Transport.send(msg);
-        } catch (MessagingException ignored) {}
+        } catch (MessagingException e) { System.out.println(e); }
     }
     public static void main(String[] args) {
         initMail();

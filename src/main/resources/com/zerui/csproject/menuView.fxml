@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane prefHeight="526.0" prefWidth="927.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.zerui.csproject.Controller.MenuController">
@@ -29,20 +30,22 @@
     <center>
 
     </center>
-   <center>
-      <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" maxHeight="Infinity" maxWidth="Infinity" style="-fx-background-color: transparenttransparent;" BorderPane.alignment="CENTER">
-         <content>
-            <VBox fx:id="postScroll" alignment="TOP_CENTER" maxWidth="Infinity" spacing="10.0" />
-         </content>
-         <BorderPane.margin>
-            <Insets />
-         </BorderPane.margin>
-      </ScrollPane>
-   </center>
    <right>
       <Pane prefHeight="476.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </right>
    <left>
       <Pane prefHeight="476.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </left>
+   <center>
+      <StackPane prefHeight="150.0" prefWidth="450.0" BorderPane.alignment="CENTER">
+         <children>
+            <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: 000000;" vbarPolicy="NEVER">
+               <content>
+                  <VBox fx:id="postScroll" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="0.0" prefWidth="0.0" spacing="10.0" />
+               </content>
+            </ScrollPane>
+            <ProgressIndicator fx:id="loadPosts" prefWidth="103.0" />
+         </children>
+      </StackPane>
+   </center>
 </BorderPane>
