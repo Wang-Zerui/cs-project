@@ -16,7 +16,7 @@ import javafx.scene.layout.*;
 import javafx.stage.*;
 import javafx.util.Duration;
 import javafx.scene.image.Image;
-
+import static com.zerui.csproject.Utils.Utils.fxmlPath;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -84,7 +84,7 @@ public class SplashScreen extends Application {
     }
 
     private void showMainStage() throws IOException {
-        Pane p = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("loginView.fxml")));
+        Pane p = FXMLLoader.load(fxmlPath("loginView.fxml"));
         Scene scene = new Scene(p);
         stage.setTitle("Hello!");
         stage.setScene(scene);

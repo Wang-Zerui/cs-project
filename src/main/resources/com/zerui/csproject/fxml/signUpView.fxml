@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<GridPane alignment="CENTER_LEFT" hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="300.0" style="-fx-background-color: #000000;" stylesheets="@css/base.css" vgap="10.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.zerui.csproject.Controller.SignUpController">
+<GridPane alignment="CENTER_LEFT" hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="300.0" style="-fx-background-color: #000000;" stylesheets="@../css/base.css" vgap="10.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.zerui.csproject.Controller.SignUpController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="141.9088134765625" minWidth="10.0" prefWidth="134.4242706298828" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="135.5757293701172" minWidth="10.0" prefWidth="135.5757293701172" />
@@ -37,7 +37,7 @@
          <children>
             <ImageView fx:id="profileView" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../images/noprofile.png" />
+                  <Image url="@../../../../images/noprofile.png" />
                </image>
             </ImageView>
             <Button mnemonicParsing="false" onAction="#changeImage" text="Upload Image">

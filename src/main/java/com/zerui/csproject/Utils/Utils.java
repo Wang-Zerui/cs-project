@@ -1,12 +1,15 @@
 package com.zerui.csproject.Utils;
 
+import com.zerui.csproject.SplashScreen;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.SnapshotResult;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.Pane;
 import net.harawata.appdirs.AppDirs;
 import net.harawata.appdirs.impl.*;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Objects;
 
 import static com.zerui.csproject.Utils.DEF.*;
@@ -26,6 +29,9 @@ public class Utils {
     public static Alert addStyleSheet(Alert alert) {
         alert.getDialogPane().getStylesheets().add(DEF.dialogCss);
         return alert;
+    }
+    public static URL fxmlPath(String name) {
+        return SplashScreen.class.getResource("fxml/"+name);
     }
     public static void main(String[] args) {
         System.out.println(path);

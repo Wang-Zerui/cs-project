@@ -18,7 +18,7 @@ public class MenuController {
     @FXML
     protected void initialize() throws IOException {
         loadPosts.setVisible(false);
-        for (int i = 0; i < 10; i ++) postScroll.getChildren().add(Utils.loadPane("/com/zerui/csproject/userPost.fxml"));
+        for (int i = 0; i < 10; i ++) postScroll.getChildren().add(Utils.loadPane("/com/zerui/csproject/fxml/userPost.fxml"));
     }
 
 }
