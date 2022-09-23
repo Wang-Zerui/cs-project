@@ -1,5 +1,6 @@
 package com.zerui.csproject.Utils;
 
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.Pane;
@@ -22,8 +23,9 @@ public class Utils {
         else if (os.startsWith("windows")) return new WindowsAppDirs(new ShellFolderResolver());
         else return new UnixAppDirs();
     }
-    public static void addStyleSheet(Alert alert) {
+    public static Alert addStyleSheet(Alert alert) {
         alert.getDialogPane().getStylesheets().add(DEF.dialogCss);
+        return alert;
     }
     public static void main(String[] args) {
         System.out.println(path);
