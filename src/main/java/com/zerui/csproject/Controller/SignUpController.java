@@ -2,6 +2,7 @@ package com.zerui.csproject.Controller;
 
 import com.google.firebase.auth.FirebaseAuthException;
 import com.zerui.csproject.Utils.Firebase;
+import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
@@ -67,4 +68,11 @@ public class SignUpController {
             profileView.setPreserveRatio(true);
         }
     }
+
+    @FXML
+    protected void usernameChange() {
+        username.setText(username.getText().replace(' ', '-'));
+        username.positionCaret(username.getText().length());
+    }
+
 }

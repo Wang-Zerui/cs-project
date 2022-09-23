@@ -33,6 +33,7 @@ public class LoginController {
             ButtonType ok = new ButtonType("Ok", ButtonBar.ButtonData.CANCEL_CLOSE);
             ButtonType resendEmail = new ButtonType("Resend Email", ButtonBar.ButtonData.OK_DONE);
             Alert alert = new Alert(Alert.AlertType.ERROR, "Please verify your email!", ok, resendEmail);
+            alert.getDialogPane().getStylesheets().add(getClass().getResource("/src/main/resources/css/base.css").toExternalForm());
             Optional<ButtonType> result = alert.showAndWait();
             if (result.orElse(ok)==resendEmail) {
                 Firebase.sendVerificationEmail(email.getText());
@@ -40,6 +41,7 @@ public class LoginController {
             }
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Wrong email or password!");
+            alert.getDialogPane().getStylesheets().add(SplashScreen.class.getResource("css/dialog.css").toExternalForm());
             alert.show();
         }
     }
