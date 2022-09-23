@@ -10,6 +10,7 @@
     -fx-text-fill: #fff;
     -fx-font-size: 1.75em;
 }
+
 .dialog-pane > *.button-bar > *.container {
     -fx-background-color: red;
 }

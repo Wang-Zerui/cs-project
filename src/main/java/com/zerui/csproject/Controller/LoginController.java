@@ -1,8 +1,10 @@
 package com.zerui.csproject.Controller;
 
 import com.zerui.csproject.Model.Personal.User;
+import com.zerui.csproject.Utils.DEF;
 import com.zerui.csproject.Utils.Firebase;
 import com.zerui.csproject.SplashScreen;
+import com.zerui.csproject.Utils.Utils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -26,6 +28,7 @@ public class LoginController {
         int status = User.login(email.getText(), password.getText());
         if (status==2) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "Success");
+            Utils.addStyleSheet(alert);
             alert.showAndWait();
             Pane p = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/zerui/csproject/menuView.fxml")));
             SplashScreen.getStage().setScene(new Scene(p));
@@ -33,7 +36,7 @@ public class LoginController {
             ButtonType ok = new ButtonType("Ok", ButtonBar.ButtonData.CANCEL_CLOSE);
             ButtonType resendEmail = new ButtonType("Resend Email", ButtonBar.ButtonData.OK_DONE);
             Alert alert = new Alert(Alert.AlertType.ERROR, "Please verify your email!", ok, resendEmail);
-            alert.getDialogPane().getStylesheets().add(getClass().getResource("/src/main/resources/css/base.css").toExternalForm());
+            Utils.addStyleSheet(alert);
             Optional<ButtonType> result = alert.showAndWait();
             if (result.orElse(ok)==resendEmail) {
                 Firebase.sendVerificationEmail(email.getText());
@@ -41,7 +44,7 @@ public class LoginController {
             }
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Wrong email or password!");
-            alert.getDialogPane().getStylesheets().add(SplashScreen.class.getResource("css/dialog.css").toExternalForm());
+            Utils.addStyleSheet(alert);
             alert.show();
         }
     }

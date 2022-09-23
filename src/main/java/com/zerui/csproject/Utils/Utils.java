@@ -1,6 +1,7 @@
 package com.zerui.csproject.Utils;
 
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.Pane;
 import net.harawata.appdirs.AppDirs;
 import net.harawata.appdirs.impl.*;
@@ -21,7 +22,9 @@ public class Utils {
         else if (os.startsWith("windows")) return new WindowsAppDirs(new ShellFolderResolver());
         else return new UnixAppDirs();
     }
-
+    public static void addStyleSheet(Alert alert) {
+        alert.getDialogPane().getStylesheets().add(DEF.dialogCss);
+    }
     public static void main(String[] args) {
         System.out.println(path);
     }
