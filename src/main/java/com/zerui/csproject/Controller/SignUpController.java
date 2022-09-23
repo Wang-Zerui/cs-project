@@ -70,5 +70,4 @@ public class SignUpController {
         username.setText(username.getText().replace(' ', '-'));
         username.positionCaret(username.getText().length());
     }
-
 }
