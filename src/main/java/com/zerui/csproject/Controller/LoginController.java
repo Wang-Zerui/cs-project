@@ -43,7 +43,6 @@ public class LoginController {
             alert.show();
         }
     }
-
     @FXML
     protected void signUp() throws IOException {
         Pane p = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/zerui/csproject/signUpView.fxml")));
@@ -54,7 +53,6 @@ public class LoginController {
         signUpStage.setScene(scene);
         signUpStage.show();
     }
-
     @FXML
     protected void resetPassword() {
         TextInputDialog dialog = new TextInputDialog();

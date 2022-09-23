@@ -1,0 +1,41 @@
+.button, .menu-button, .toggle-button {
+    -fx-background-radius: 7;
+    -fx-padding: 8 16;
+    -fx-font-size: 1.2em;
+    -fx-text-fill: #fff;
+    -fx-cursor: hand;
+    -fx-background-insets: 0!important; /* Fixes the small background change on focus */
+}
+.button, .menu-button, .toggle-button:selected { -fx-background-color: -fx-accent }
+.button:pressed, .menu-button:pressed, .toggle-button:pressed:selected,
+.keyboardNav .button:focused, .keyboardNav .menu-button:focused, toggle-button:selected:focused {
+    -fx-background-color: derive(-fx-accent, +20%) !important;
+}
+.button:hover, .menu-button:hover, .toggle-button:selected:hover { -fx-background-color: derive(-fx-accent, -10%) }
+.button.outlined, .menu-button.outlined, .toggle-button {
+    -fx-border-width: 1;
+    -fx-border-radius: 7;
+    -fx-background-color: #0000;
+    -fx-border-color: rgba(16, 107, 255, .8);
+    -fx-text-fill: #fff;
+}
+.button.outlined:hover, .menu-button.outlined:hover, .toggle-button:hover { -fx-background-color: rgba(16, 107, 255, .15) }
+.button.outlined:pressed, .keyboardNav .button.outlined:focused, .menu-button.outlined:pressed, .toggle-button:pressed {
+    -fx-background-color: rgba(16, 107, 255, .3) !important;
+    -fx-border-color: -fx-accent;
+}
+.button.icon {
+    -fx-padding: 6 10;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+HBox, VBox {
+    -fx-background-color: black;
+}
+.label {
+    -fx-text-fill: white;
+}
+.text-field {
+    -fx-background-color: #121212;
+    -fx-text-fill: #FFFFFF;
+}
