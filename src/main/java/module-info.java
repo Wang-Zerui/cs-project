@@ -17,6 +17,7 @@ module com.zerui.csproject.Model {
     requires commons.validator;
     requires net.harawata.appdirs;
     requires org.apache.commons.io;
+    requires org.apache.commons.lang3;
     opens com.zerui.csproject.Controller to javafx.fxml;
     exports com.zerui.csproject;
 }
