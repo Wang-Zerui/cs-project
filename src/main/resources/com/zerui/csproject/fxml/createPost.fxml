@@ -12,7 +12,11 @@
    <children>
       <ScrollPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onDragDropped="#handleDropped" onDragOver="#handleDragOver" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
          <content>
-            <HBox fx:id="imageScrollBox" fillHeight="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="10.0" />
+            <HBox fx:id="imageScrollBox" fillHeight="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="10.0">
+               <padding>
+                  <Insets left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </HBox>
          </content>
       </ScrollPane>
       <HBox>
@@ -22,7 +26,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </HBox.margin>
             </TextField>
-            <Button mnemonicParsing="false" text="Post">
+            <Button disable="true" mnemonicParsing="false" text="Post">
                <HBox.margin>
                   <Insets bottom="10.0" right="10.0" top="10.0" />
                </HBox.margin>
