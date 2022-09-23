@@ -34,13 +34,14 @@ public class MenuController {
         for (int i = 0; i < 10; i++) postScroll.getChildren().add(Utils.standard.loadPane("/com/zerui/csproject/fxml/userPost.fxml"));
     }
 
-    private Pane loadPost(ArrayList<String> imageURLs, ) throws IOException {
+    private Pane loadPost(ArrayList<String> imageURLs) throws IOException {
         VBox p = Utils.standard.loadPane("fxml/userPost.fxml");
-        p.lookup("")
+        p.lookup("");
         ArrayList<Image> images = new ArrayList<>();
         for (String i:imageURLs) {
             Image image = new Image(i);
             images.add(image);
         }
+        return null;
     }
 }

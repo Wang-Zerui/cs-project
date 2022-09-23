@@ -112,6 +112,6 @@ public class Firebase {
         } catch (FirebaseAuthException ignore) { return false; }
     }
     public static ArrayList<String> getPostImages(String uuid) {
-
+        return null;
     }
 }
