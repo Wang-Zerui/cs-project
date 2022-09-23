@@ -35,14 +35,6 @@
 .label {
     -fx-text-fill: white;
 }
-/* Must be imported into all other CSS for constant styles */
-
-/**
- * .keyboardNav is a class programmatically added/removed from
- * the root element by listening for mouse and keyboard events,
- * so that focus indicators won't appear and ruin the UI for
- * mouse users, but clearly indicate focus for keyboard users.
- */
 
 .button, .menu-button, .toggle-button {
     -fx-background-radius: 7;

@@ -39,7 +39,7 @@
    <center>
       <StackPane prefHeight="150.0" prefWidth="450.0" BorderPane.alignment="CENTER">
          <children>
-            <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: 000000;" vbarPolicy="NEVER">
+            <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: 000000;" vbarPolicy="ALWAYS">
                <content>
                   <VBox fx:id="postScroll" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="0.0" prefWidth="0.0" spacing="10.0" />
                </content>

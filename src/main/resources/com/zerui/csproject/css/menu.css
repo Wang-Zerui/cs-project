@@ -14,5 +14,9 @@
     -fx-text-fill: white;
 }
 .button {
-    -fx-text-fill: white;
+    -fx-text-fill: #4094ef;
+}
+.button:pressed, .menu-button:pressed, .toggle-button:pressed:selected,
+.keyboardNav .button:focused, .keyboardNav .menu-button:focused, toggle-button:selected:focused {
+    -fx-text-fill: derive(-fx-accent, +20%) !important;
 }

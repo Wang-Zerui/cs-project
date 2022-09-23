@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
 import org.apache.commons.validator.routines.EmailValidator;
 
 public class SignUpController {
-    File imageSel = new File(String.valueOf(getClass().getResource("src/main/resources/images/noprofile.png")));
+    File imageSel = new File(String.valueOf(getClass().getResource("/src/main/resources/images/noprofile.png")));
     @FXML
     TextField name, username, email;
     @FXML
@@ -30,11 +30,11 @@ public class SignUpController {
 
     @FXML
     protected void signUpPressed() throws IOException {
-        if (username.getText().isEmpty()||password.getText().isEmpty()||name.getText().isEmpty()||email.getText().isEmpty()||confirmPassword.getText().isEmpty()) Utils.addStyleSheet(new Alert(Alert.AlertType.ERROR, "Please fill in all blanks!")).showAndWait();
-        else if (Firebase.userExists(username.getText())) Utils.addStyleSheet(new Alert(Alert.AlertType.ERROR, "Username already exists!")).showAndWait();
-        else if (!Objects.equals(password.getText(), confirmPassword.getText())) Utils.addStyleSheet(new Alert(Alert.AlertType.ERROR, "Password not the same!")).showAndWait();
-        else if (!EmailValidator.getInstance().isValid(email.getText())) Utils.addStyleSheet(new Alert(Alert.AlertType.ERROR, "Email is invalid!")).showAndWait();
-        else if (!Pattern.compile("^.{6,15}$").matcher(password.getText()).matches()) Utils.addStyleSheet(new Alert(Alert.AlertType.ERROR, "Password must be between 6 to 10 characters!")).showAndWait();
+        if (username.getText().isEmpty()||password.getText().isEmpty()||name.getText().isEmpty()||email.getText().isEmpty()||confirmPassword.getText().isEmpty()) Utils.standard.addStyleSheet(new Alert(Alert.AlertType.ERROR, "Please fill in all blanks!")).showAndWait();
+        else if (Firebase.userExists(username.getText())) Utils.standard.addStyleSheet(new Alert(Alert.AlertType.ERROR, "Username already exists!")).showAndWait();
+        else if (!Objects.equals(password.getText(), confirmPassword.getText())) Utils.standard.addStyleSheet(new Alert(Alert.AlertType.ERROR, "Password not the same!")).showAndWait();
+        else if (!EmailValidator.getInstance().isValid(email.getText())) Utils.standard.addStyleSheet(new Alert(Alert.AlertType.ERROR, "Email is invalid!")).showAndWait();
+        else if (!Pattern.compile("^.{6,15}$").matcher(password.getText()).matches()) Utils.standard.addStyleSheet(new Alert(Alert.AlertType.ERROR, "Password must be between 6 to 10 characters!")).showAndWait();
         else {
             String uuid = Firebase.genUUID();
             URL url = Firebase.uploadFile(imageSel, "userprofile/"+uuid+".png");
@@ -43,7 +43,7 @@ public class SignUpController {
                 new Alert(Alert.AlertType.INFORMATION, "Success! Check your email for an email verification link!").showAndWait();
                 LoginController.signUpStage.close();
             } catch (FirebaseAuthException e) {
-                Utils.addStyleSheet(new Alert(Alert.AlertType.ERROR, "Email already taken!")).showAndWait();
+                Utils.standard.addStyleSheet(new Alert(Alert.AlertType.ERROR, "Email already taken!")).showAndWait();
                 System.out.println(e);
             }
 

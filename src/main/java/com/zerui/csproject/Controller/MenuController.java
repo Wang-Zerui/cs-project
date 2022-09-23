@@ -1,12 +1,16 @@
 package com.zerui.csproject.Controller;
 
 import com.zerui.csproject.Utils.Utils;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.ProgressIndicator;
+import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-
+import javafx.scene.image.Image;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class MenuController {
     @FXML
@@ -15,10 +19,28 @@ public class MenuController {
     ScrollPane scrollPane;
     @FXML
     ProgressIndicator loadPosts;
+    ScrollBar scrollBar;
     @FXML
     protected void initialize() throws IOException {
         loadPosts.setVisible(false);
-        for (int i = 0; i < 10; i ++) postScroll.getChildren().add(Utils.loadPane("/com/zerui/csproject/fxml/userPost.fxml"));
+        scrollPane.vvalueProperty().addListener(
+            (ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
+                System.out.println( newValue.doubleValue() );
+                if(newValue.doubleValue() == 1.0){
+                    System.out.println( "AT TOP" );
+                    // load more items
+                }
+        });
+        for (int i = 0; i < 10; i++) postScroll.getChildren().add(Utils.standard.loadPane("/com/zerui/csproject/fxml/userPost.fxml"));
     }
 
+    private Pane loadPost(ArrayList<String> imageURLs, ) throws IOException {
+        VBox p = Utils.standard.loadPane("fxml/userPost.fxml");
+        p.lookup("")
+        ArrayList<Image> images = new ArrayList<>();
+        for (String i:imageURLs) {
+            Image image = new Image(i);
+            images.add(image);
+        }
+    }
 }

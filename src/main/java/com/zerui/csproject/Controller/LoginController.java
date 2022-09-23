@@ -5,8 +5,6 @@ import com.zerui.csproject.Utils.DEF;
 import com.zerui.csproject.Utils.Firebase;
 import com.zerui.csproject.SplashScreen;
 import com.zerui.csproject.Utils.Utils;
-import static com.zerui.csproject.Utils.Utils.addStyleSheet;
-import static com.zerui.csproject.Utils.Utils.fxmlPath;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -28,15 +26,15 @@ public class LoginController {
         int status = User.login(email.getText(), password.getText());
         if (status==2) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "Success");
-            addStyleSheet(alert);
+            Utils.standard.addStyleSheet(alert);
             alert.showAndWait();
-            Pane p = FXMLLoader.load(fxmlPath("menuView.fxml"));
+            Pane p = FXMLLoader.load(Utils.standard.fxmlPath("menuView.fxml"));
             SplashScreen.getStage().setScene(new Scene(p));
         } else if (status == 1) {
             ButtonType ok = new ButtonType("Ok", ButtonBar.ButtonData.CANCEL_CLOSE);
             ButtonType resendEmail = new ButtonType("Resend Email", ButtonBar.ButtonData.OK_DONE);
             Alert alert = new Alert(Alert.AlertType.ERROR, "Please verify your email!", ok, resendEmail);
-            addStyleSheet(alert);
+            Utils.standard.addStyleSheet(alert);
             Optional<ButtonType> result = alert.showAndWait();
             if (result.orElse(ok)==resendEmail) {
                 Firebase.sendVerificationEmail(email.getText());
@@ -44,13 +42,13 @@ public class LoginController {
             }
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Wrong email or password!");
-            addStyleSheet(alert);
+            Utils.standard.addStyleSheet(alert);
             alert.show();
         }
     }
     @FXML
     protected void signUp() throws IOException {
-        Pane p = FXMLLoader.load(fxmlPath("signUpView.fxml"));
+        Pane p = FXMLLoader.load(Utils.standard.fxmlPath("signUpView.fxml"));
         Scene scene = new Scene(p, 300, 500);
         signUpStage = new Stage();
         signUpStage.setScene(scene);
@@ -68,9 +66,9 @@ public class LoginController {
         Optional<String> result = dialog.showAndWait();
         result.ifPresent(email -> {
             if (EmailValidator.getInstance().isValid(email))
-            if (Firebase.resetPassword(email)) addStyleSheet(new Alert(Alert.AlertType.INFORMATION, "Email verification link sent!")).showAndWait();
-            else addStyleSheet(new Alert(Alert.AlertType.ERROR, "Email does not exist!")).showAndWait();
-            else addStyleSheet(new Alert(Alert.AlertType.ERROR, "Invalid email!")).showAndWait();
+            if (Firebase.resetPassword(email)) Utils.standard.addStyleSheet(new Alert(Alert.AlertType.INFORMATION, "Email verification link sent!")).showAndWait();
+            else Utils.standard.addStyleSheet(new Alert(Alert.AlertType.ERROR, "Email does not exist!")).showAndWait();
+            else Utils.standard.addStyleSheet(new Alert(Alert.AlertType.ERROR, "Invalid email!")).showAndWait();
         });
     }
 

@@ -2,6 +2,7 @@ package com.zerui.csproject;
 
 import com.zerui.csproject.Utils.Firebase;
 import com.zerui.csproject.Utils.Mail;
+import com.zerui.csproject.Utils.Utils;
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -16,7 +17,6 @@ import javafx.scene.layout.*;
 import javafx.stage.*;
 import javafx.util.Duration;
 import javafx.scene.image.Image;
-import static com.zerui.csproject.Utils.Utils.fxmlPath;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -84,10 +84,12 @@ public class SplashScreen extends Application {
     }
 
     private void showMainStage() throws IOException {
-        Pane p = FXMLLoader.load(fxmlPath("loginView.fxml"));
+        Pane p = FXMLLoader.load(Utils.standard.fxmlPath("loginView.fxml"));
         Scene scene = new Scene(p);
         stage.setTitle("Hello!");
         stage.setScene(scene);
+        stage.setMinHeight(380);
+        stage.setMinWidth(250);
         stage.show();
     }
 

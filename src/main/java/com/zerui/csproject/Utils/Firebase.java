@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.util.*;
@@ -109,6 +110,8 @@ public class Firebase {
             Mail.sendMessage("Reset your email with this link!", auth.generatePasswordResetLink(email), email);
             return true;
         } catch (FirebaseAuthException ignore) { return false; }
+    }
+    public static ArrayList<String> getPostImages(String uuid) {
 
     }
 }

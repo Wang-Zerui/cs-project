@@ -15,25 +15,27 @@ import java.util.Objects;
 import static com.zerui.csproject.Utils.DEF.*;
 
 public class Utils {
-    static final AppDirs appDirs = getInstance();
-    static final String path = appDirs.getUserDataDir(CREDENTIALS_APP_NAME, CREDENTIALS_VERSION, CREDENTIALS_AUTHOR);
-    public static Pane loadPane(String path) throws IOException {
-        return FXMLLoader.load(Objects.requireNonNull(Utils.class.getResource(path)));
+    public final static Utils standard = new Utils();
+
+    final AppDirs appDirs = getInstance();
+    final String path = appDirs.getUserDataDir(CREDENTIALS_APP_NAME, CREDENTIALS_VERSION, CREDENTIALS_AUTHOR);
+    public <T> T loadPane(String path) throws IOException {
+        return FXMLLoader.load(Objects.requireNonNull(SplashScreen.class.getResource(path)));
     }
-    public static AppDirs getInstance() {
+    public AppDirs getInstance() {
         String os = System.getProperty("os.name").toLowerCase();
         if (os.startsWith("mac os x")) return new MacOSXAppDirs();
         else if (os.startsWith("windows")) return new WindowsAppDirs(new ShellFolderResolver());
         else return new UnixAppDirs();
     }
-    public static Alert addStyleSheet(Alert alert) {
+    public Alert addStyleSheet(Alert alert) {
         alert.getDialogPane().getStylesheets().add(DEF.dialogCss);
         return alert;
     }
-    public static URL fxmlPath(String name) {
+    public URL fxmlPath(String name) {
         return SplashScreen.class.getResource("fxml/"+name);
     }
-    public static void main(String[] args) {
+    public void main(String[] args) {
         System.out.println(path);
     }
 }
