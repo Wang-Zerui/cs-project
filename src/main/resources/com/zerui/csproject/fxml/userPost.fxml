@@ -13,13 +13,13 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="622.0" prefWidth="450.0" style="-fx-border-radius: 10 10 10 10; -fx-border-color: 000000;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="622.0" prefWidth="450.0" style="-fx-border-radius: 10 10 10 10; -fx-border-color: FFFFFF;" stylesheets="@../css/post.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="450.0" style="-fx-background-color: FFFFFF; -fx-padding: 5; -fx-border-radius: 10 10 10 10;">
+      <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="450.0">
          <children>
-            <Circle fx:id="imageProfile" fill="#ffffff00" radius="18.0" stroke="#000000b5" strokeType="INSIDE" strokeWidth="2.0">
+            <Circle fx:id="imageProfile" fill="#ffffff00" radius="18.0" stroke="#ffffffdf" strokeType="INSIDE" strokeWidth="2.0">
                <HBox.margin>
-                  <Insets />
+                  <Insets left="5.0" />
                </HBox.margin>
             </Circle>
             <Label fx:id="username" text="Label">
@@ -55,9 +55,9 @@
             </HBox>
          </children>
       </StackPane>
-      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="104.0" prefWidth="450.0" style="-fx-background-color: FFFFFF;" VBox.vgrow="ALWAYS">
+      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="104.0" prefWidth="450.0" VBox.vgrow="ALWAYS">
          <children>
-            <HBox prefHeight="45.0" prefWidth="300.0" style="-fx-background-color: FFFFFF;">
+            <HBox prefHeight="45.0" prefWidth="300.0">
                <children>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -88,7 +88,7 @@
             <Separator prefWidth="200.0" />
             <HBox alignment="CENTER" prefHeight="50.0" prefWidth="450.0">
                <children>
-                  <TextField fx:id="commentField" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" promptText="Enter comment here..." style="-fx-background-color: 000000; -fx-border-color: transparent; -fx-border-radius: 10 10 10 10;" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+                  <TextField fx:id="commentField" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" promptText="Enter comment here..." HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
                      <HBox.margin>
                         <Insets left="5.0" />
                      </HBox.margin>
