@@ -26,7 +26,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </HBox.margin>
             </TextField>
-            <Button disable="true" mnemonicParsing="false" text="Post">
+            <Button mnemonicParsing="false" onAction="#createPost" text="Post">
                <HBox.margin>
                   <Insets bottom="10.0" right="10.0" top="10.0" />
                </HBox.margin>

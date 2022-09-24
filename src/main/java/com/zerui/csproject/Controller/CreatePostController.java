@@ -63,4 +63,9 @@ public class CreatePostController {
             imageScrollBox.getChildren().add(imageView);
         }
     }
+
+    @FXML
+    private void createPost() {
+        
+    }
 }
