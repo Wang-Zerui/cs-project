@@ -69,13 +69,10 @@ public class Firebase {
                 .setDisplayName(username)
                 .setPhotoUrl(profileImageURL.toString());
         auth.createUser(createRequest);
-        Map<String, Object> docData = new HashMap<>();
+        db.document("users/"+UUID).set(new Account(name, username, "", UUID, profileImageURL.toString()));
         Map<String, Object> regArray = new HashMap<>();
         regArray.put("nameList", new ArrayList<>(List.of(username)));
-        docData.put("name", name);
-        docData.put("email", email);
         db.collection("registered").document("username").set(regArray, SetOptions.merge());
-        db.document("users/"+UUID).set(docData);
         sendVerificationEmail(email);
     }
     public static String getName(String userHash) {
@@ -115,6 +112,6 @@ public class Firebase {
             ApiFuture<DocumentSnapshot> future = db.collection("users").document(uid).get();
             DocumentSnapshot document = future.get();
             return document.toObject(Account.class);
-        } catch (Exception e) {return null;}
+        } catch (Exception e) {System.out.println(e.getMessage()); return null;}
     }
 }

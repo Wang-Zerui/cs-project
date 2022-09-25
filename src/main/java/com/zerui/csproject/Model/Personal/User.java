@@ -11,6 +11,7 @@ public class User {
                 User.password = password;
                 User.email = email;
                 account = Firebase.getAccount(id);
+                System.out.println(account);
                 return 2;
             } else return 1;
         }

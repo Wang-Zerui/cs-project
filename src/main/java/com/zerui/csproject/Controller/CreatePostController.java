@@ -84,6 +84,7 @@ public class CreatePostController {
                 imageLinks.add(Firebase.uploadFile(file, String.format("posts/%s/%s", postID ,file.getName())).toString());
             }
             PostModel model = new PostModel(postID, currUser.getUuid(), captionField.getText(), imageLinks, Instant.now().getEpochSecond());
+            Firebase.db.collection("posts").document(postID).set(model);
         }
     }
 }

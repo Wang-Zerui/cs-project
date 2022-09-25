@@ -3,9 +3,9 @@ package com.zerui.csproject.Model;
 import java.util.ArrayList;
 
 public class PostModel {
-    String uid, authorUid, caption;
-    ArrayList<String> imagePosts;
-    long time;
+    public String uid, authorUid, caption;
+    public ArrayList<String> imagePosts;
+    public long time;
 
     public PostModel(String uid, String authorUid, String caption, ArrayList<String> imagePosts, long time) {
         this.uid = uid;

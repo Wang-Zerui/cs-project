@@ -20,4 +20,6 @@ module com.zerui.csproject.Model {
     requires org.apache.commons.lang3;
     opens com.zerui.csproject.Controller to javafx.fxml;
     exports com.zerui.csproject;
+    opens com.zerui.csproject.Model.Personal to google.cloud.firestore;
+    exports com.zerui.csproject.Model to google.cloud.firestore;
 }
