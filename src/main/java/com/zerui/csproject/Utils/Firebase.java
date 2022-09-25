@@ -13,12 +13,14 @@ import com.google.firebase.auth.UserRecord;
 import com.google.firebase.cloud.FirestoreClient;
 import com.google.firebase.cloud.StorageClient;
 import com.zerui.csproject.Model.Personal.Account;
+import com.zerui.csproject.SplashScreen;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Array;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.util.*;
@@ -29,8 +31,9 @@ public class Firebase {
     public static Bucket bucket;
     public static Firestore db;
     public static FirebaseAuth auth;
-    public static void initFirebase() throws IOException {
-        FileInputStream refreshToken = new FileInputStream("csproj.json");
+    public static void initFirebase() throws IOException, URISyntaxException {
+        File imageSel = new File(SplashScreen.class.getResource("csproj.json").toURI());
+        FileInputStream refreshToken = new FileInputStream(imageSel);
         FirebaseOptions options = FirebaseOptions.builder()
                 .setCredentials(GoogleCredentials.fromStream(refreshToken))
                 .setStorageBucket("cs-project-60a27.appspot.com")

@@ -18,6 +18,7 @@ import javafx.stage.*;
 import javafx.util.Duration;
 import javafx.scene.image.Image;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.Objects;
 
 /**
@@ -64,7 +65,7 @@ public class SplashScreen extends Application {
     public void start(final Stage initStage) {
         final Task initApp = new Task() {
             @Override
-            protected Object call() throws Exception {
+            protected Object call() throws InterruptedException, IOException, URISyntaxException {
                 Firebase.initFirebase();
                 Mail.initMail();
                 for (int i = 0; i < 2000; i++) {

@@ -1,6 +1,7 @@
 package com.zerui.csproject.Controller;
 
 import com.google.firebase.auth.FirebaseAuthException;
+import com.zerui.csproject.SplashScreen;
 import com.zerui.csproject.Utils.Firebase;
 import com.zerui.csproject.Utils.Utils;
 import javafx.beans.property.StringProperty;
@@ -13,6 +14,7 @@ import javafx.stage.FileChooser;
 import javafx.scene.image.ImageView;
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Objects;
 import java.util.regex.Pattern;
@@ -20,7 +22,7 @@ import java.util.regex.Pattern;
 import org.apache.commons.validator.routines.EmailValidator;
 
 public class SignUpController {
-    File imageSel = new File(String.valueOf(getClass().getResource("/src/main/resources/images/noprofile.png")));
+    File imageSel = new File(SplashScreen.class.getResource("images/noprofile.png").toString());
     @FXML
     TextField name, username, email;
     @FXML

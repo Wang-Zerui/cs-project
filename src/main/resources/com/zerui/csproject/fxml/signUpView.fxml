@@ -37,7 +37,7 @@
          <children>
             <ImageView fx:id="profileView" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../images/noprofile.png" />
+                  <Image url="@../images/noprofile.png" />
                </image>
             </ImageView>
             <Button mnemonicParsing="false" onAction="#changeImage" text="Upload Image">

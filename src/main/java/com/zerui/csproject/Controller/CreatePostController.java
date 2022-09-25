@@ -76,12 +76,14 @@ public class CreatePostController {
     private void createPost() throws IOException {
         if (captionField.getText().isEmpty()) Utils.standard.addStyleSheet(new Alert(Alert.AlertType.ERROR, "Please enter a caption!")).showAndWait();
         else if (selFile.isEmpty()) Utils.standard.addStyleSheet(new Alert(Alert.AlertType.ERROR, "Please upload images!")).showAndWait();
-        Account currUser = User.getAccount();
-        String postID = Firebase.genUUID();
-        ArrayList<String> imageLinks = new ArrayList<>();
-        for (File file:selFile) {
-            imageLinks.add(Firebase.uploadFile(file, String.format("posts/%s/%s", postID ,file.getName())).toString());
+        else {
+            Account currUser = User.getAccount();
+            String postID = Firebase.genUUID();
+            ArrayList<String> imageLinks = new ArrayList<>();
+            for (File file:selFile) {
+                imageLinks.add(Firebase.uploadFile(file, String.format("posts/%s/%s", postID ,file.getName())).toString());
+            }
+            PostModel model = new PostModel(postID, currUser.getUuid(), captionField.getText(), imageLinks, Instant.now().getEpochSecond());
         }
-        PostModel model = new PostModel(postID, currUser.getUuid(), captionField.getText(), imageLinks, Instant.now().getEpochSecond());
     }
 }
