@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="442.0" stylesheets="@../css/base.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.zerui.csproject.Controller.CreatePostController">
    <children>
       <ScrollPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onDragDropped="#handleDropped" onDragOver="#handleDragOver" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
@@ -21,7 +20,7 @@
       </ScrollPane>
       <HBox>
          <children>
-            <TextField promptText="Enter a caption..." HBox.hgrow="ALWAYS">
+            <TextField fx:id="captionField" promptText="Enter a caption..." HBox.hgrow="ALWAYS">
                <HBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </HBox.margin>

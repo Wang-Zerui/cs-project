@@ -19,4 +19,7 @@ public class User {
     public static boolean changePassword(String oldPassword, String newPassword) {
         return false;
     }
+    public static Account getAccount() {
+        return account;
+    }
 }

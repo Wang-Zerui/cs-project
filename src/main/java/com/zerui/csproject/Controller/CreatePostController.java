@@ -1,11 +1,16 @@
 package com.zerui.csproject.Controller;
 
+import com.zerui.csproject.Model.Personal.Account;
+import com.zerui.csproject.Model.Personal.User;
 import com.zerui.csproject.Utils.DEF;
+import com.zerui.csproject.Utils.Firebase;
 import com.zerui.csproject.Utils.Utils;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.AccessibleAction;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
@@ -14,10 +19,10 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import org.apache.commons.io.FilenameUtils;
+import com.zerui.csproject.Model.PostModel;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.*;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -26,10 +31,17 @@ import org.apache.commons.lang3.ArrayUtils;
 public class CreatePostController {
     ArrayList<File> selFile = new ArrayList<>();
     @FXML
+    TextField captionField;
+    @FXML
     HBox imageScrollBox;
     @FXML
     private void handleDragOver(DragEvent event) {
         if (event.getDragboard().hasFiles()) event.acceptTransferModes(TransferMode.ANY);
+    }
+
+    @FXML
+    private void initialize() {
+
     }
 
     @FXML
@@ -61,7 +73,15 @@ public class CreatePostController {
     }
 
     @FXML
-    private void createPost() {
-        
+    private void createPost() throws IOException {
+        if (captionField.getText().isEmpty()) Utils.standard.addStyleSheet(new Alert(Alert.AlertType.ERROR, "Please enter a caption!")).showAndWait();
+        else if (selFile.isEmpty()) Utils.standard.addStyleSheet(new Alert(Alert.AlertType.ERROR, "Please upload images!")).showAndWait();
+        Account currUser = User.getAccount();
+        String postID = Firebase.genUUID();
+        ArrayList<String> imageLinks = new ArrayList<>();
+        for (File file:selFile) {
+            imageLinks.add(Firebase.uploadFile(file, String.format("posts/%s/%s", postID ,file.getName())).toString());
+        }
+        PostModel model = new PostModel(postID, currUser.getUuid(), captionField.getText(), imageLinks, Instant.now().getEpochSecond());
     }
 }
