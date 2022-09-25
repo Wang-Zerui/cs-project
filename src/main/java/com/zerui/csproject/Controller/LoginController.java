@@ -38,7 +38,7 @@ public class LoginController {
             Optional<ButtonType> result = alert.showAndWait();
             if (result.orElse(ok)==resendEmail) {
                 Firebase.sendVerificationEmail(email.getText());
-                new Alert(Alert.AlertType.INFORMATION, "Sent email!").showAndWait();
+                Utils.standard.addStyleSheet(new Alert(Alert.AlertType.INFORMATION, "Sent email!")).showAndWait();
             }
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Wrong email or password!");

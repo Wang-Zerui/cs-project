@@ -76,6 +76,7 @@ public class Firebase {
         docData.put("email", email);
         db.collection("registered").document("username").set(regArray, SetOptions.merge());
         db.document("users/"+UUID).set(docData);
+        sendVerificationEmail(email);
     }
     public static String getName(String userHash) {
         try {
