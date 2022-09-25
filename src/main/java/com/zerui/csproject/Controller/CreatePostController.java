@@ -8,9 +8,7 @@ import com.zerui.csproject.Utils.Utils;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.AccessibleAction;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
@@ -35,19 +33,28 @@ public class CreatePostController {
     @FXML
     HBox imageScrollBox;
     @FXML
+    ScrollPane scrollPane;
+    @FXML
+    Label dragDropPrompt;
+    @FXML
     private void handleDragOver(DragEvent event) {
         if (event.getDragboard().hasFiles()) event.acceptTransferModes(TransferMode.ANY);
     }
 
     @FXML
     private void initialize() {
-
+        if (!DEF.showedCreatePostTip) {
+            Utils.standard.addStyleSheet(new Alert(Alert.AlertType.INFORMATION, "Tutorial: Drag and drop images or click upload file to manually upload")).showAndWait();
+            Utils.standard.addStyleSheet(new Alert(Alert.AlertType.INFORMATION, "Tutorial: Click on images to delete them")).showAndWait();
+            DEF.showedCreatePostTip = true;
+        }
     }
 
     @FXML
     private void handleDropped(DragEvent event) throws FileNotFoundException {
         String[] validExt = {"jpg", "jpeg", "png"};
         List<File> files = event.getDragboard().getFiles();
+        dragDropPrompt.setVisible(false);
         for (File f:files) {
             if (!ArrayUtils.contains(validExt, FilenameUtils.getExtension(f.getName()))) {
                 Utils.standard.addStyleSheet(new Alert(Alert.AlertType.ERROR, "Invalid file type!")).showAndWait();
@@ -57,7 +64,8 @@ public class CreatePostController {
             selFile.add(f);
             ImageView imageView = new ImageView();
             imageView.setPreserveRatio(true);
-            imageView.setFitHeight(150);
+            imageView.setFitHeight(250);
+
             imageView.setImage(img);
             imageView.setOnMouseClicked(mouseEvent -> {
                 Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Delete image?");
@@ -85,6 +93,8 @@ public class CreatePostController {
             }
             PostModel model = new PostModel(postID, currUser.getUuid(), captionField.getText(), imageLinks, Instant.now().getEpochSecond());
             Firebase.db.collection("posts").document(postID).set(model);
+            Utils.standard.addStyleSheet(new Alert(Alert.AlertType.INFORMATION, "Post created successfully!")).showAndWait();
+            MenuController.createPost.close();
         }
     }
 }

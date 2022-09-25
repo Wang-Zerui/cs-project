@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class MenuController {
+    public static Stage createPost;
     @FXML
     VBox postScroll;
     @FXML
@@ -47,8 +48,12 @@ public class MenuController {
     @FXML
     protected void createPost() throws IOException {
         Pane p = FXMLLoader.load(Utils.standard.fxmlPath("createPost.fxml"));
-        Scene scene = new Scene(p, 300, 500);
-        Stage createPost = new Stage();
+        Scene scene = new Scene(p, 750, 380);
+        createPost = new Stage();
+        createPost.setMinWidth(750);
+        createPost.setMinHeight(380);
+        createPost.setMaxHeight(380);
+        createPost.setMaxWidth(750);
         createPost.setScene(scene);
         createPost.setTitle("Create Post!");
         createPost.setScene(scene);

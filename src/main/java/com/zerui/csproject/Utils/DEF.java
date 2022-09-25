@@ -9,4 +9,5 @@ public class DEF {
     public static final String CREDENTIALS_AUTHOR = "iamnumber4";
     public static final String CREDENTIALS_VERSION = "v1.0";
     public static final String dialogCss = SplashScreen.class.getResource("css/dialog.css").toExternalForm();
+    public static boolean showedCreatePostTip = false;
 }

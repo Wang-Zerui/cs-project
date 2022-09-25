@@ -12,7 +12,7 @@ import java.io.IOException;
 public class HelloApplication extends Application {
     public void start(Stage stage) throws IOException {
         Pane p = Utils.standard.loadPane("fxml/createPost.fxml");
-        Scene scene = new Scene(p, 280, 400);
+        Scene scene = new Scene(p, 750, 380);
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
