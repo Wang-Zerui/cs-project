@@ -22,13 +22,16 @@ import java.util.regex.Pattern;
 import org.apache.commons.validator.routines.EmailValidator;
 
 public class SignUpController {
-    File imageSel = new File(SplashScreen.class.getResource("images/noprofile.png").toString());
+    File imageSel = new File(SplashScreen.class.getResource("images/noprofile.png").toURI());
     @FXML
     TextField name, username, email;
     @FXML
     PasswordField password, confirmPassword;
     @FXML
     ImageView profileView;
+
+    public SignUpController() throws URISyntaxException {
+    }
 
     @FXML
     protected void signUpPressed() throws IOException {
