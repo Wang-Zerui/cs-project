@@ -97,9 +97,6 @@ public class Firebase {
             Mail.sendMessage("Verify your email signup using link!", auth.generateEmailVerificationLink(email), email);
         } catch (FirebaseAuthException ignore) {}
     }
-    public static void downloadToAppdata(String blob) {
-        // TODO
-    }
     public static boolean resetPassword(String email) {
         try {
             Mail.sendMessage("Reset your email with this link!", auth.generatePasswordResetLink(email), email);

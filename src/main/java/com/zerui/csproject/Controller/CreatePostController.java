@@ -29,11 +29,7 @@ public class CreatePostController {
     HBox imageScrollBox;
     @FXML
     private void handleDragOver(DragEvent event) {
-        if (event.getDragboard().hasFiles()) {
-            event.acceptTransferModes(TransferMode.ANY);
-            // write code that prints hello world
-//            FilenameUtils.getExtension();
-        }
+        if (event.getDragboard().hasFiles()) event.acceptTransferModes(TransferMode.ANY);
     }
 
     @FXML

@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="622.0" prefWidth="450.0" style="-fx-border-radius: 10 10 10 10; -fx-border-color: FFFFFF;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="635.0" prefWidth="450.0" style="-fx-border-radius: 10 10 10 10; -fx-border-color: FFFFFF;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="450.0">
          <children>
@@ -77,6 +77,11 @@
                   </ImageView>
                </children>
             </HBox>
+            <Label text="&lt;Insert Date&gt;">
+               <padding>
+                  <Insets left="5.0" />
+               </padding>
+            </Label>
             <Label fx:id="likeCount" text="Liked by 100" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" />

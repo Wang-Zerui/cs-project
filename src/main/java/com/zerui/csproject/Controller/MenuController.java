@@ -25,10 +25,15 @@ public class MenuController {
         loadPosts.setVisible(false);
         scrollPane.vvalueProperty().addListener(
             (ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
-                System.out.println( newValue.doubleValue() );
-                if(newValue.doubleValue() == 1.0){
+                if(newValue.doubleValue() >= 0.95){
                     System.out.println( "AT TOP" );
-                    // load more items
+                    for (int i = 0; i < 10; i++) {
+                        try {
+                            postScroll.getChildren().add(Utils.standard.loadPane("/com/zerui/csproject/fxml/userPost.fxml"));
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
                 }
         });
         for (int i = 0; i < 10; i++) postScroll.getChildren().add(Utils.standard.loadPane("/com/zerui/csproject/fxml/userPost.fxml"));
