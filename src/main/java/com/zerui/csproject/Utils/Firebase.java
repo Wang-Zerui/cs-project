@@ -13,6 +13,7 @@ import com.google.firebase.auth.UserRecord;
 import com.google.firebase.cloud.FirestoreClient;
 import com.google.firebase.cloud.StorageClient;
 import com.zerui.csproject.Model.Personal.Account;
+import com.zerui.csproject.Model.PostModel;
 import com.zerui.csproject.SplashScreen;
 
 import java.io.File;
@@ -112,6 +113,13 @@ public class Firebase {
             ApiFuture<DocumentSnapshot> future = db.collection("users").document(uid).get();
             DocumentSnapshot document = future.get();
             return document.toObject(Account.class);
+        } catch (Exception e) {System.out.println(e.getMessage()); return null;}
+    }
+    public static PostModel getPost(String uid) {
+        try {
+            ApiFuture<DocumentSnapshot> future = db.collection("posts").document(uid).get();
+            DocumentSnapshot document = future.get();
+            return document.toObject(PostModel.class);
         } catch (Exception e) {System.out.println(e.getMessage()); return null;}
     }
 }

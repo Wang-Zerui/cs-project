@@ -1,6 +1,8 @@
 package com.zerui.csproject.Controller;
 
+import com.zerui.csproject.Model.PostModel;
 import com.zerui.csproject.SplashScreen;
+import com.zerui.csproject.Utils.Firebase;
 import com.zerui.csproject.Utils.Utils;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -13,9 +15,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.image.Image;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
-
+import java.util.Date;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 public class MenuController {
     public static Stage createPost;
@@ -34,14 +38,14 @@ public class MenuController {
                     System.out.println( "AT TOP" );
                     for (int i = 0; i < 10; i++) {
                         try {
-                            postScroll.getChildren().add(loadPost(new ArrayList<>()));
+                            postScroll.getChildren().add(loadPost(getPost("d4139fbd-2514-43ba-b9b0-c1445d3225d8")));
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
                     }
                 }
         });
-        for (int i = 0; i < 10; i++) postScroll.getChildren().add(loadPost(new ArrayList<>()));
+        for (int i = 0; i < 10; i++) postScroll.getChildren().add(loadPost(getPost("d4139fbd-2514-43ba-b9b0-c1445d3225d8")));
     }
 
     @FXML
@@ -59,7 +63,7 @@ public class MenuController {
         createPost.show();
     }
 
-    private Pane loadPost(ArrayList<String> imageURLs) throws IOException {
+    private Pane loadPost(PostModel postModel) throws IOException {
         VBox p = Utils.standard.loadPane("fxml/userPost.fxml");
         Label username = (Label) p.lookup("#username");
         Label timestampLabel = (Label) p.lookup("#timestampLabel");
@@ -73,12 +77,23 @@ public class MenuController {
         ImageView viewComments = (ImageView) p.lookup("#viewComments");
         ImageView like = (ImageView) p.lookup("#like");
         username.setText("I hate my life");
-//        ArrayList<Image> images = new ArrayList<>();
-//        for (String i:imageURLs) {
-//            Image image = new Image(i);
-//            images.add(image);
-//        }
+        scrollLeft.setVisible(false);
+        scrollRight.setVisible(false);
+        ArrayList<Image> images = new ArrayList<>();
+        for (String i:postModel.imagePosts) {
+            Image image = new Image(i);
+            images.add(image);
+        }
+        if (images.size()>1) scrollRight.setVisible(true);
+        Date date = new Date(postModel.time*1000);
+        SimpleDateFormat sdf = new SimpleDateFormat("EEEE,MMMM d,yyyy h:mm,a", Locale.ENGLISH);
+        String formattedDate = sdf.format(date);
+        timestampLabel.setText(formattedDate);
         return p;
+    }
+
+    private PostModel getPost(String uid) {
+        return Firebase.getPost(uid);
     }
 
 }
