@@ -60,23 +60,7 @@ public class CreatePostController {
                 Utils.standard.addStyleSheet(new Alert(Alert.AlertType.ERROR, "Invalid file type!")).showAndWait();
                 continue;
             }
-            Image img = new Image(new FileInputStream(f));
-            selFile.add(f);
-            ImageView imageView = new ImageView();
-            imageView.setPreserveRatio(true);
-            imageView.setFitHeight(250);
-
-            imageView.setImage(img);
-            imageView.setOnMouseClicked(mouseEvent -> {
-                Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Delete image?");
-                a.getDialogPane().getStylesheets().add(DEF.dialogCss);
-                Optional<ButtonType> result = a.showAndWait();
-                if (result.isPresent()) if (result.get()==ButtonType.OK) {
-                    selFile.remove(imageScrollBox.getChildren().indexOf(imageView));
-                    imageScrollBox.getChildren().remove(imageView);
-                }
-            });
-            imageScrollBox.getChildren().add(imageView);
+            addFile(f);
         }
     }
 
@@ -96,5 +80,34 @@ public class CreatePostController {
             Utils.standard.addStyleSheet(new Alert(Alert.AlertType.INFORMATION, "Post created successfully!")).showAndWait();
             MenuController.createPost.close();
         }
+    }
+
+    @FXML
+    private void uploadFile() throws FileNotFoundException {
+        FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Image Files (*.png, *.jpeg, *.jpg)", "*.png", "*.jpeg", "*.jpg");
+        fileChooser.getExtensionFilters().add(extFilter);
+        File f = fileChooser.showOpenDialog(MenuController.createPost);
+        if (f!=null) addFile(f);
+
+    }
+
+    private void addFile(File f) throws FileNotFoundException {
+        Image img = new Image(new FileInputStream(f));
+        selFile.add(f);
+        ImageView imageView = new ImageView();
+        imageView.setPreserveRatio(true);
+        imageView.setFitHeight(250);
+        imageView.setImage(img);
+        imageView.setOnMouseClicked(mouseEvent -> {
+            Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Delete image?");
+            a.getDialogPane().getStylesheets().add(DEF.dialogCss);
+            Optional<ButtonType> result = a.showAndWait();
+            if (result.isPresent()) if (result.get()==ButtonType.OK) {
+                selFile.remove(imageScrollBox.getChildren().indexOf(imageView));
+                imageScrollBox.getChildren().remove(imageView);
+            }
+        });
+        imageScrollBox.getChildren().add(imageView);
     }
 }
