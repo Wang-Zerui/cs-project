@@ -4,6 +4,7 @@ import com.zerui.csproject.Model.PostModel;
 import com.zerui.csproject.SplashScreen;
 import com.zerui.csproject.Utils.Firebase;
 import com.zerui.csproject.Utils.Utils;
+import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -30,22 +31,22 @@ public class MenuController {
     @FXML
     ProgressIndicator loadPosts;
     @FXML
-    protected void initialize() throws IOException {
+    protected void initialize() {
         loadPosts.setVisible(false);
+        Thread loadPost = new Thread(()-> Platform.runLater(() -> {
+            try {
+                postScroll.getChildren().add(loadPost(getPost("d4139fbd-2514-43ba-b9b0-c1445d3225d8")));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }));
+        new Thread(loadPost).start();
         scrollPane.vvalueProperty().addListener(
             (ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
                 if(newValue.doubleValue() >= 0.95){
-                    System.out.println( "AT TOP" );
-                    for (int i = 0; i < 10; i++) {
-                        try {
-                            postScroll.getChildren().add(loadPost(getPost("d4139fbd-2514-43ba-b9b0-c1445d3225d8")));
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
+                     new Thread(loadPost).start();
                 }
         });
-        for (int i = 0; i < 10; i++) postScroll.getChildren().add(loadPost(getPost("d4139fbd-2514-43ba-b9b0-c1445d3225d8")));
     }
 
     @FXML
@@ -84,9 +85,10 @@ public class MenuController {
             Image image = new Image(i);
             images.add(image);
         }
+        postImageView.setImage(images.get(0));
         if (images.size()>1) scrollRight.setVisible(true);
         Date date = new Date(postModel.time*1000);
-        SimpleDateFormat sdf = new SimpleDateFormat("EEEE,MMMM d,yyyy h:mm,a", Locale.ENGLISH);
+        SimpleDateFormat sdf = new SimpleDateFormat("MMMM d yyyy h:mm a", Locale.ENGLISH);
         String formattedDate = sdf.format(date);
         timestampLabel.setText(formattedDate);
         return p;
