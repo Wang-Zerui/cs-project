@@ -29,24 +29,25 @@ public class MenuController {
     @FXML
     ScrollPane scrollPane;
     @FXML
-    ProgressIndicator loadPosts;
+    ProgressIndicator progressIndicator;
     @FXML
     protected void initialize() {
-        loadPosts.setVisible(false);
+        progressIndicator.setVisible(false);
         Thread loadPost = new Thread(()-> {
+            if (progressIndicator.isVisible()) return;
             try {
+                Platform.runLater(() -> progressIndicator.setVisible(true));
                 Pane p = loadPost(getPost("d4139fbd-2514-43ba-b9b0-c1445d3225d8"));
-                Platform.runLater(() -> {
-                    postScroll.getChildren().add(p);
-                });
+                Platform.runLater(() -> postScroll.getChildren().add(postScroll.getChildren().size()==1?0:postScroll.getChildren().size()-2, p));
+                Platform.runLater(() -> progressIndicator.setVisible(false));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }});
         new Thread(loadPost).start();
         scrollPane.vvalueProperty().addListener(
             (ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
-                if(newValue.doubleValue() >= 0.95) {
-                     new Thread(loadPost).start();
+                if(newValue.doubleValue() >= 1.0) {
+                    new Thread(loadPost).start();
                 }
         });
     }
