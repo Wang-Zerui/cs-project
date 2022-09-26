@@ -35,7 +35,6 @@ public class SplashScreen extends Application {
     private static Stage stage;
 
     public static void main(String[] args) {
-        Platform.runLater(() -> stage = new Stage());
         launch(args);
     }
 
@@ -87,6 +86,7 @@ public class SplashScreen extends Application {
     private void showMainStage() throws IOException {
         Pane p = FXMLLoader.load(Utils.standard.fxmlPath("loginView.fxml"));
         Scene scene = new Scene(p);
+        stage =  new Stage();
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.setMinHeight(380);
