@@ -33,17 +33,19 @@ public class MenuController {
     @FXML
     protected void initialize() {
         loadPosts.setVisible(false);
-        Thread loadPost = new Thread(()-> Platform.runLater(() -> {
+        Thread loadPost = new Thread(()-> {
             try {
-                postScroll.getChildren().add(loadPost(getPost("d4139fbd-2514-43ba-b9b0-c1445d3225d8")));
+                Pane p = loadPost(getPost("d4139fbd-2514-43ba-b9b0-c1445d3225d8"));
+                Platform.runLater(() -> {
+                    postScroll.getChildren().add(p);
+                });
             } catch (IOException e) {
                 throw new RuntimeException(e);
-            }
-        }));
+            }});
         new Thread(loadPost).start();
         scrollPane.vvalueProperty().addListener(
             (ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
-                if(newValue.doubleValue() >= 0.95){
+                if(newValue.doubleValue() >= 0.95) {
                      new Thread(loadPost).start();
                 }
         });
