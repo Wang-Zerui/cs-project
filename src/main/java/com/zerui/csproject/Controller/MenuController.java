@@ -6,10 +6,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ProgressIndicator;
-import javafx.scene.control.ScrollBar;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.image.Image;
@@ -35,24 +32,24 @@ public class MenuController {
                     System.out.println( "AT TOP" );
                     for (int i = 0; i < 10; i++) {
                         try {
-                            postScroll.getChildren().add(Utils.standard.loadPane("/com/zerui/csproject/fxml/userPost.fxml"));
+                            postScroll.getChildren().add(loadPost(new ArrayList<>()));
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
                     }
                 }
         });
-        for (int i = 0; i < 10; i++) postScroll.getChildren().add(Utils.standard.loadPane("/com/zerui/csproject/fxml/userPost.fxml"));
+        for (int i = 0; i < 10; i++) postScroll.getChildren().add(loadPost(new ArrayList<>()));
     }
 
     @FXML
     protected void createPost() throws IOException {
         Pane p = FXMLLoader.load(Utils.standard.fxmlPath("createPost.fxml"));
-        Scene scene = new Scene(p, 750, 380);
+        Scene scene = new Scene(p, 750, 400);
         createPost = new Stage();
         createPost.setMinWidth(750);
-        createPost.setMinHeight(380);
-        createPost.setMaxHeight(380);
+        createPost.setMinHeight(400);
+        createPost.setMaxHeight(400);
         createPost.setMaxWidth(750);
         createPost.setScene(scene);
         createPost.setTitle("Create Post!");
@@ -62,13 +59,14 @@ public class MenuController {
 
     private Pane loadPost(ArrayList<String> imageURLs) throws IOException {
         VBox p = Utils.standard.loadPane("fxml/userPost.fxml");
-        p.lookup("");
-        ArrayList<Image> images = new ArrayList<>();
-        for (String i:imageURLs) {
-            Image image = new Image(i);
-            images.add(image);
-        }
-        return null;
+        Label username = (Label) p.lookup("#username");
+        username.setText("I hate my life");
+//        ArrayList<Image> images = new ArrayList<>();
+//        for (String i:imageURLs) {
+//            Image image = new Image(i);
+//            images.add(image);
+//        }
+        return p;
     }
 
 }
