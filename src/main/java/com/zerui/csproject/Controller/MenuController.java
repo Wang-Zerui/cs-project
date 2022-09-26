@@ -7,9 +7,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.image.Image;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -60,6 +62,16 @@ public class MenuController {
     private Pane loadPost(ArrayList<String> imageURLs) throws IOException {
         VBox p = Utils.standard.loadPane("fxml/userPost.fxml");
         Label username = (Label) p.lookup("#username");
+        Label timestampLabel = (Label) p.lookup("#timestampLabel");
+        Label likeCount = (Label) p.lookup("#likeCount");
+        Button scrollLeft = (Button) p.lookup("#scrollLeft");
+        Button scrollRight = (Button) p.lookup("#scrollRight");
+        Button postComment = (Button) p.lookup("#postComment");
+        Circle imageProfile = (Circle) p.lookup("#imageProfile");
+        TextField commentField = (TextField) p.lookup("#commentField");
+        ImageView postImageView = (ImageView) p.lookup("#postImageView");
+        ImageView viewComments = (ImageView) p.lookup("#viewComments");
+        ImageView like = (ImageView) p.lookup("#like");
         username.setText("I hate my life");
 //        ArrayList<Image> images = new ArrayList<>();
 //        for (String i:imageURLs) {

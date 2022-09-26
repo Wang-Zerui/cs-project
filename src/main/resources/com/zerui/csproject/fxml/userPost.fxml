@@ -34,17 +34,17 @@
       </HBox>
       <StackPane prefHeight="450.0" prefWidth="450.0">
          <children>
-            <ImageView fitHeight="450.0" fitWidth="450.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="postImageView" fitHeight="450.0" fitWidth="450.0" pickOnBounds="true" preserveRatio="true" />
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button mnemonicParsing="false" style="-fx-background-color: 000000;" text="&lt;">
+                  <Button fx:id="scrollLeft" mnemonicParsing="false" style="-fx-background-color: 000000;" text="&lt;">
                      <HBox.margin>
                         <Insets left="5.0" />
                      </HBox.margin>
                   </Button>
                   <HBox alignment="CENTER_RIGHT" prefHeight="444.0" prefWidth="420.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Button mnemonicParsing="false" style="-fx-background-color: 000000;" text="&gt;">
+                        <Button fx:id="scrollRight" mnemonicParsing="false" style="-fx-background-color: 000000;" text="&gt;">
                            <HBox.margin>
                               <Insets right="5.0" />
                            </HBox.margin>
@@ -59,7 +59,7 @@
          <children>
             <HBox prefHeight="45.0" prefWidth="300.0">
                <children>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="like" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/icons/Like.png" />
                      </image>
@@ -67,7 +67,7 @@
                         <Insets bottom="5.0" left="5.0" top="5.0" />
                      </HBox.margin>
                   </ImageView>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="viewComments" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/icons/Comment.png" />
                      </image>
@@ -77,7 +77,7 @@
                   </ImageView>
                </children>
             </HBox>
-            <Label text="&lt;Insert Date&gt;">
+            <Label fx:id="timestampLabel" text="&lt;Insert Date&gt;">
                <padding>
                   <Insets left="5.0" />
                </padding>
@@ -98,7 +98,7 @@
                         <Insets left="5.0" />
                      </HBox.margin>
                   </TextField>
-                  <Button mnemonicParsing="false" style="-fx-background-color: 000000;" text="Send" textFill="#1797ff">
+                  <Button fx:id="postComment" mnemonicParsing="false" style="-fx-background-color: 000000;" text="Send" textFill="#1797ff">
                      <font>
                         <Font size="16.0" />
                      </font>
