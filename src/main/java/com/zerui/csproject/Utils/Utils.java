@@ -5,9 +5,13 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.SnapshotResult;
 import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import net.harawata.appdirs.AppDirs;
 import net.harawata.appdirs.impl.*;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
@@ -38,4 +42,5 @@ public class Utils {
     public void main(String[] args) {
         System.out.println(path);
     }
+    public Image loadImage(String path) throws FileNotFoundException { return new Image(new FileInputStream(SplashScreen.class.getResource(path).getPath()));}
 }

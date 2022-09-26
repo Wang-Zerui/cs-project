@@ -19,6 +19,8 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+
+import java.io.FileNotFoundException;
 import java.util.Date;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,6 +37,15 @@ public class MenuController {
     ProgressIndicator progressIndicator;
     @FXML
     Circle profileView;
+    @FXML
+    ImageView homeImage, explorePostImage;
+    boolean isDiscovery;
+    Thread t = new Thread(new Runnable() {
+        @Override
+        public void run() {
+
+        }
+    });
     Thread loadPost = new Thread(()-> {
         if (progressIndicator.isVisible()) return;
         try {
@@ -76,8 +87,13 @@ public class MenuController {
     }
 
     @FXML
-    protected void explorePosts() {
+    private void goHome() throws FileNotFoundException {
+        changeMode();
+    }
 
+    @FXML
+    protected void explorePosts() throws FileNotFoundException {
+        changeMode();
     }
 
     private Pane loadPost(PostModel postModel) throws IOException {
@@ -114,4 +130,18 @@ public class MenuController {
         return Firebase.getPost(uid);
     }
 
+    private void changeMode() throws FileNotFoundException {
+        if (isDiscovery) {
+            explorePostImage.setImage(Utils.standard.loadImage("images/icons/Find-People.png"));
+            homeImage.setImage(Utils.standard.loadImage("images/icons/Home.png"));
+        } else {
+            explorePostImage.setImage(Utils.standard.loadImage("images/icons/Found-People.png"));
+            homeImage.setImage(Utils.standard.loadImage("images/icons/Home-Filled.png"));
+        }
+        isDiscovery = !isDiscovery;
+    }
+
+    private void initDiscovery() {
+
+    }
 }

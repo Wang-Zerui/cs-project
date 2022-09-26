@@ -23,9 +23,9 @@
                   <TextField prefHeight="35.0" prefWidth="230.0" />
                </children>
             </HBox>
-                <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="0.0" style="-fx-background-color: 000000;">
+                <Button mnemonicParsing="false" onAction="#goHome" prefHeight="26.0" prefWidth="0.0" style="-fx-background-color: 000000;">
                     <graphic>
-                        <ImageView fitHeight="18.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="homeImage" fitHeight="18.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../images/icons/Home.png" />
                             </image>
@@ -36,16 +36,16 @@
                <graphic>
                   <ImageView fitHeight="18.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/icons/New post.png" />
+                        <Image url="@../images/icons/New-post.png" />
                      </image>
                   </ImageView>
                </graphic>
             </Button>
             <Button mnemonicParsing="false" onAction="#explorePosts" prefHeight="26.0" prefWidth="0.0" style="-fx-background-color: 000000;">
                <graphic>
-                  <ImageView fitHeight="18.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="explorePostImage" fitHeight="18.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/icons/Find People.png" />
+                        <Image url="@../images/icons/Find-People.png" />
                      </image>
                   </ImageView>
                </graphic>
