@@ -71,5 +71,4 @@ public class LoginController {
             else Utils.standard.addStyleSheet(new Alert(Alert.AlertType.ERROR, "Invalid email!")).showAndWait();
         });
     }
-
 }

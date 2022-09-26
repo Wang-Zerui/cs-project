@@ -30,8 +30,7 @@ public class SignUpController {
     @FXML
     ImageView profileView;
 
-    public SignUpController() throws URISyntaxException {
-    }
+    public SignUpController() throws URISyntaxException {}
 
     @FXML
     protected void signUpPressed() throws IOException {
@@ -45,7 +44,7 @@ public class SignUpController {
             URL url = Firebase.uploadFile(imageSel, "userprofile/"+uuid+".png");
             try {
                 Firebase.createAccount(name.getText(), username.getText(), password.getText(), email.getText(), uuid, url);
-                new Alert(Alert.AlertType.INFORMATION, "Success! Check your email for an email verification link!").showAndWait();
+                Utils.standard.addStyleSheet(new Alert(Alert.AlertType.INFORMATION, "Success! Check your email for an email verification link!")).showAndWait();
                 LoginController.signUpStage.close();
             } catch (FirebaseAuthException e) {
                 Utils.standard.addStyleSheet(new Alert(Alert.AlertType.ERROR, "Email already taken!")).showAndWait();

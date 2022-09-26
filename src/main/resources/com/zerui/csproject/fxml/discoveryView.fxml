@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -12,22 +11,16 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Circle?>
 
 <BorderPane prefHeight="526.0" prefWidth="927.0" stylesheets="@../css/base.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.zerui.csproject.Controller.MenuController">
     <top>
         <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="600.0" style="-fx-border-color: 000000;">
             <children>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
-               <children>
-                  <TextField prefHeight="35.0" prefWidth="230.0" />
-               </children>
-            </HBox>
                 <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="0.0" style="-fx-background-color: 000000;">
                     <graphic>
                         <ImageView fitHeight="18.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../images/icons/Home.png" />
+                                <Image url="@../images/icons/Home-Filled.png" />
                             </image>
                         </ImageView>
                     </graphic>
@@ -36,7 +29,7 @@
                <graphic>
                   <ImageView fitHeight="18.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/icons/New post.png" />
+                        <Image url="@../images/icons/New%20post.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -45,16 +38,11 @@
                <graphic>
                   <ImageView fitHeight="18.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/icons/Find People.png" />
+                        <Image url="@../images/icons/Found%20People.png" />
                      </image>
                   </ImageView>
                </graphic>
             </Button>
-            <Circle fx:id="profileView" fill="TRANSPARENT" radius="19.0" stroke="WHITE" strokeType="INSIDE">
-               <HBox.margin>
-                  <Insets right="10.0" />
-               </HBox.margin>
-            </Circle>
             </children>
         </HBox>
     </top>

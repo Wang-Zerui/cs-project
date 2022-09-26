@@ -1,5 +1,6 @@
 package com.zerui.csproject.Controller;
 
+import com.zerui.csproject.Model.Personal.User;
 import com.zerui.csproject.Model.PostModel;
 import com.zerui.csproject.SplashScreen;
 import com.zerui.csproject.Utils.Firebase;
@@ -8,12 +9,14 @@ import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.AccessibleAction;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.image.Image;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import java.util.Date;
@@ -31,24 +34,29 @@ public class MenuController {
     @FXML
     ProgressIndicator progressIndicator;
     @FXML
+    Circle profileView;
+    Thread loadPost = new Thread(()-> {
+        if (progressIndicator.isVisible()) return;
+        try {
+            Platform.runLater(() -> progressIndicator.setVisible(true));
+            Pane p = loadPost(getPost("8585457d-700e-46b9-9a8c-438b52bfd21a"));
+            Platform.runLater(() -> postScroll.getChildren().add(postScroll.getChildren().size()==1?0:postScroll.getChildren().size()-2, p));
+            Platform.runLater(() -> progressIndicator.setVisible(false));
+        } catch (IOException e) { throw new RuntimeException(e); }
+    });
+    @FXML
     protected void initialize() {
         progressIndicator.setVisible(false);
-        Thread loadPost = new Thread(()-> {
-            if (progressIndicator.isVisible()) return;
-            try {
-                Platform.runLater(() -> progressIndicator.setVisible(true));
-                Pane p = loadPost(getPost("8585457d-700e-46b9-9a8c-438b52bfd21a"));
-                Platform.runLater(() -> postScroll.getChildren().add(postScroll.getChildren().size()==1?0:postScroll.getChildren().size()-2, p));
-                Platform.runLater(() -> progressIndicator.setVisible(false));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }});
         new Thread(loadPost).start();
         scrollPane.vvalueProperty().addListener(
             (ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
-                if(newValue.doubleValue() >= 1.0) {
-                    new Thread(loadPost).start();
-                }
+                if(newValue.doubleValue() >= 1.0) new Thread(loadPost).start();
+        });
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                profileView.setFill(new ImagePattern(new Image(User.getAccount().profileLink)));
+            }
         });
     }
 
@@ -65,6 +73,11 @@ public class MenuController {
         createPost.setTitle("Create Post!");
         createPost.setScene(scene);
         createPost.show();
+    }
+
+    @FXML
+    protected void explorePosts() {
+
     }
 
     private Pane loadPost(PostModel postModel) throws IOException {
