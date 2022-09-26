@@ -17,21 +17,16 @@ import javafx.scene.layout.*;
 import javafx.stage.*;
 import javafx.util.Duration;
 import javafx.scene.image.Image;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Objects;
 
-/**
- * Example of displaying a splash page for a standalone JavaFX application
- * modified from https://gist.github.com/jewelsea/2305098
- *
- */
 public class SplashScreen extends Application {
-    public static final String SPLASH_IMAGE ="file:splash.jpeg";
-
     private Pane splashLayout;
     private ProgressBar loadProgress;
-    private final Label progressText = new Label("Loading firebase...");
     private static Stage stage;
 
     public static void main(String[] args) {
@@ -39,24 +34,16 @@ public class SplashScreen extends Application {
     }
 
     @Override
-    public void init() {
-        ImageView splash = new ImageView(new Image(SPLASH_IMAGE));
+    public void init() throws FileNotFoundException {
+        ImageView splash = new ImageView(new Image(new FileInputStream(getClass().getResource("images/splash.png").getPath())));
         loadProgress = new ProgressBar();
         splashLayout = new VBox();
-        loadProgress.setMinWidth(800);
-        splashLayout.getChildren().addAll(splash, loadProgress, progressText);
-        progressText.setAlignment(Pos.CENTER);
-        splashLayout.setStyle(
-                "-fx-padding: 5; " +
-                        "-fx-background-color: cornsilk; " +
-                        "-fx-border-width:5; " +
-                        "-fx-border-color: " +
-                        "linear-gradient(" +
-                        "to bottom, " +
-                        "chocolate, " +
-                        "derive(chocolate, 50%)" +
-                        ");"
-        );
+        loadProgress.setMinWidth(270);
+        splash.setFitWidth(270);
+        splash.setFitHeight(270);
+        splash.setPreserveRatio(true);
+        splashLayout.getChildren().addAll(splash, loadProgress);
+        splashLayout.setStyle("-fx-border-color: black;-fx-border-width:5;");
         splashLayout.setEffect(new DropShadow());
     }
 
@@ -95,7 +82,6 @@ public class SplashScreen extends Application {
     }
 
     private void showSplash(final Stage initStage, Task<?> task, InitCompletionHandler initCompletionHandler) {
-        progressText.textProperty().bind(task.messageProperty());
         loadProgress.progressProperty().bind(task.progressProperty());
         task.stateProperty().addListener((observableValue, oldState, newState) -> {
             if (newState == Worker.State.SUCCEEDED) {

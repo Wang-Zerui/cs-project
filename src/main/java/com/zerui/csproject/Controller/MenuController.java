@@ -37,7 +37,7 @@ public class MenuController {
             if (progressIndicator.isVisible()) return;
             try {
                 Platform.runLater(() -> progressIndicator.setVisible(true));
-                Pane p = loadPost(getPost("d4139fbd-2514-43ba-b9b0-c1445d3225d8"));
+                Pane p = loadPost(getPost("8585457d-700e-46b9-9a8c-438b52bfd21a"));
                 Platform.runLater(() -> postScroll.getChildren().add(postScroll.getChildren().size()==1?0:postScroll.getChildren().size()-2, p));
                 Platform.runLater(() -> progressIndicator.setVisible(false));
             } catch (IOException e) {
