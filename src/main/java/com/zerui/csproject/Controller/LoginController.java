@@ -9,6 +9,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.apache.commons.validator.routines.EmailValidator;
@@ -22,29 +24,16 @@ public class LoginController {
     @FXML
     PasswordField password;
     @FXML
-    protected void login() throws IOException {
-        int status = User.login(email.getText(), password.getText());
-        if (status==2) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Success");
-            Utils.standard.addStyleSheet(alert);
-            alert.showAndWait();
-            Pane p = FXMLLoader.load(Utils.standard.fxmlPath("menuView.fxml"));
-            SplashScreen.getStage().setScene(new Scene(p));
-        } else if (status == 1) {
-            ButtonType ok = new ButtonType("Ok", ButtonBar.ButtonData.CANCEL_CLOSE);
-            ButtonType resendEmail = new ButtonType("Resend Email", ButtonBar.ButtonData.OK_DONE);
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Please verify your email!", ok, resendEmail);
-            Utils.standard.addStyleSheet(alert);
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.orElse(ok)==resendEmail) {
-                Firebase.sendVerificationEmail(email.getText());
-                Utils.standard.addStyleSheet(new Alert(Alert.AlertType.INFORMATION, "Sent email!")).showAndWait();
-            }
-        } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Wrong email or password!");
-            Utils.standard.addStyleSheet(alert);
-            alert.show();
-        }
+    protected void loginButtonPressed() throws IOException {
+        login();
+    }
+    @FXML
+    protected void emailTyped(KeyEvent keyEvent) throws IOException {
+        if (keyEvent.getCode()== KeyCode.ENTER) login();
+    }
+    @FXML
+    protected void passwordTyped(KeyEvent keyEvent) throws IOException {
+        if (keyEvent.getCode()== KeyCode.ENTER) login();
     }
     @FXML
     protected void signUp() throws IOException {
@@ -70,5 +59,29 @@ public class LoginController {
             else Utils.standard.addStyleSheet(new Alert(Alert.AlertType.ERROR, "Email does not exist!")).showAndWait();
             else Utils.standard.addStyleSheet(new Alert(Alert.AlertType.ERROR, "Invalid email!")).showAndWait();
         });
+    }
+    private void login() throws IOException {
+        int status = User.login(email.getText(), password.getText());
+        if (status==2) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Success");
+            Utils.standard.addStyleSheet(alert);
+            alert.showAndWait();
+            Pane p = FXMLLoader.load(Utils.standard.fxmlPath("menuView.fxml"));
+            SplashScreen.getStage().setScene(new Scene(p));
+        } else if (status == 1) {
+            ButtonType ok = new ButtonType("Ok", ButtonBar.ButtonData.CANCEL_CLOSE);
+            ButtonType resendEmail = new ButtonType("Resend Email", ButtonBar.ButtonData.OK_DONE);
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Please verify your email!", ok, resendEmail);
+            Utils.standard.addStyleSheet(alert);
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.orElse(ok)==resendEmail) {
+                Firebase.sendVerificationEmail(email.getText());
+                Utils.standard.addStyleSheet(new Alert(Alert.AlertType.INFORMATION, "Sent email!")).showAndWait();
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Wrong email or password!");
+            Utils.standard.addStyleSheet(alert);
+            alert.show();
+        }
     }
 }
