@@ -1,5 +1,6 @@
 package com.zerui.csproject.Controller;
 
+import com.google.cloud.firestore.SetOptions;
 import com.zerui.csproject.Model.Personal.AccountModel;
 import com.zerui.csproject.Model.Personal.User;
 import com.zerui.csproject.Utils.DEF;
@@ -18,9 +19,8 @@ import com.zerui.csproject.Model.PostModel;
 
 import java.io.*;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+
 import org.apache.commons.lang3.ArrayUtils;
 
 public class CreatePostController {
@@ -66,14 +66,7 @@ public class CreatePostController {
         if (captionField.getText().isEmpty()) Utils.standard.addStyleSheet(new Alert(Alert.AlertType.ERROR, "Please enter a caption!")).showAndWait();
         else if (selFile.isEmpty()) Utils.standard.addStyleSheet(new Alert(Alert.AlertType.ERROR, "Please upload images!")).showAndWait();
         else {
-            AccountModel currUser = User.getAccount();
-            String postID = Firebase.genUUID();
-            ArrayList<String> imageLinks = new ArrayList<>();
-            for (File file:selFile) {
-                imageLinks.add(Firebase.uploadFile(file, String.format("posts/%s/%s", postID ,file.getName())).toString());
-            }
-            PostModel model = new PostModel(postID, currUser.uuid, captionField.getText(), imageLinks, Instant.now().getEpochSecond());
-            Firebase.db.collection("posts").document(postID).set(model);
+            Firebase.createPost(selFile, captionField.getText());
             Utils.standard.addStyleSheet(new Alert(Alert.AlertType.INFORMATION, "Post created successfully!")).showAndWait();
             MenuController.createPost.close();
         }

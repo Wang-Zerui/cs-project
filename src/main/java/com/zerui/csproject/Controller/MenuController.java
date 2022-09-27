@@ -110,7 +110,7 @@ public class MenuController {
         ImageView postImageView = (ImageView) p.lookup("#postImageView");
         ImageView viewComments = (ImageView) p.lookup("#viewComments");
         ImageView like = (ImageView) p.lookup("#like");
-        username.setText("I hate my life");
+        username.setText(post.author.username);
         scrollLeft.setVisible(false);
         scrollRight.setVisible(false);
         postImageView.setImage(post.images.get(0));

@@ -14,6 +14,7 @@ import com.google.firebase.cloud.FirestoreClient;
 import com.google.firebase.cloud.StorageClient;
 import com.zerui.csproject.Model.Comment;
 import com.zerui.csproject.Model.Personal.AccountModel;
+import com.zerui.csproject.Model.Personal.User;
 import com.zerui.csproject.Model.PostModel;
 import com.zerui.csproject.SplashScreen;
 
@@ -23,6 +24,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -130,5 +132,18 @@ public class Firebase {
             }
             return comments;
         } catch (Exception e) {System.out.println(e.getMessage()); return new ArrayList<>();}
+    }
+    public static void createPost(ArrayList<File> selFile, String caption) throws IOException {
+        AccountModel currUser = User.getAccount();
+        String postID = Firebase.genUUID();
+        ArrayList<String> imageLinks = new ArrayList<>();
+        for (File file:selFile) {
+            imageLinks.add(Firebase.uploadFile(file, String.format("posts/%s/%s", postID ,file.getName())).toString());
+        }
+        PostModel model = new PostModel(postID, currUser.uuid, caption, imageLinks, Instant.now().getEpochSecond());
+        Map<String, Object> docData = new HashMap<>();
+        docData.put("postsArrayUid", new ArrayList<>(Collections.singletonList(postID)));
+        Firebase.db.collection("posts").document(postID).set(model);
+        Firebase.db.collection("users").document(User.getAccount().uuid).set(docData, SetOptions.merge());
     }
 }
