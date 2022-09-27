@@ -8,6 +8,8 @@ import com.zerui.csproject.Utils.Firebase;
 import com.zerui.csproject.Utils.Utils;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.AccessibleAction;
@@ -111,14 +113,22 @@ public class MenuController {
         ImageView viewComments = (ImageView) p.lookup("#viewComments");
         ImageView like = (ImageView) p.lookup("#like");
         username.setText(post.author.username);
-        scrollLeft.setVisible(false);
-        scrollRight.setVisible(false);
         postImageView.setImage(post.images.get(0));
-        if (post.images.size()>1) scrollRight.setVisible(true);
         Date date = new Date(post.time*1000);
         SimpleDateFormat sdf = new SimpleDateFormat("MMMM d yyyy h:mm a", Locale.ENGLISH);
         String formattedDate = sdf.format(date);
         timestampLabel.setText(formattedDate);
+        imageProfile.setFill(new ImagePattern(new Image(post.author.profileLink)));
+        scrollRight.setOnAction(actionEvent -> {
+            int index = post.images.indexOf(postImageView.getImage())+1;
+            if (index<0||index>=post.images.size()) return;
+            postImageView.setImage(post.images.get(index));
+        });
+        scrollLeft.setOnAction(actionEvent -> {
+            int index = post.images.indexOf(postImageView.getImage())-1;
+            if (index<0||index>=post.images.size()) return;
+            postImageView.setImage(post.images.get(index));
+        });
         return p;
     }
 
