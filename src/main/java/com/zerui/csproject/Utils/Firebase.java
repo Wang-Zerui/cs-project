@@ -12,7 +12,8 @@ import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.UserRecord;
 import com.google.firebase.cloud.FirestoreClient;
 import com.google.firebase.cloud.StorageClient;
-import com.zerui.csproject.Model.Personal.Account;
+import com.zerui.csproject.Model.Comment;
+import com.zerui.csproject.Model.Personal.AccountModel;
 import com.zerui.csproject.Model.PostModel;
 import com.zerui.csproject.SplashScreen;
 
@@ -20,12 +21,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Array;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.security.MessageDigest;
 import java.util.*;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 public class Firebase {
@@ -70,7 +68,7 @@ public class Firebase {
                 .setDisplayName(username)
                 .setPhotoUrl(profileImageURL.toString());
         auth.createUser(createRequest);
-        db.document("users/"+UUID).set(new Account(name, username, "", UUID, profileImageURL.toString()));
+        db.document("users/"+UUID).set(new AccountModel(name, username, "", UUID, profileImageURL.toString()));
         Map<String, Object> regArray = new HashMap<>();
         regArray.put("nameList", new ArrayList<>(List.of(username)));
         db.collection("registered").document("username").set(regArray, SetOptions.merge());
@@ -108,11 +106,11 @@ public class Firebase {
     public static ArrayList<String> getPostImages(String uuid) {
         return null;
     }
-    public static Account getAccount(String uid) {
+    public static AccountModel getAccount(String uid) {
         try {
             ApiFuture<DocumentSnapshot> future = db.collection("users").document(uid).get();
             DocumentSnapshot document = future.get();
-            return document.toObject(Account.class);
+            return document.toObject(AccountModel.class);
         } catch (Exception e) {System.out.println(e.getMessage()); return null;}
     }
     public static PostModel getPost(String uid) {
@@ -121,5 +119,16 @@ public class Firebase {
             DocumentSnapshot document = future.get();
             return document.toObject(PostModel.class);
         } catch (Exception e) {System.out.println(e.getMessage()); return null;}
+    }
+    public static ArrayList<Comment> getComments(String postId) {
+        try {
+            ApiFuture<QuerySnapshot> future = db.collection("posts").document(postId).collection("comments").get();
+            List<QueryDocumentSnapshot> documents = future.get().getDocuments();
+            ArrayList<Comment> comments = new ArrayList<>();
+            for (DocumentSnapshot document : documents) {
+                comments.add(document.toObject(Comment.class));
+            }
+            return comments;
+        } catch (Exception e) {System.out.println(e.getMessage()); return new ArrayList<>();}
     }
 }

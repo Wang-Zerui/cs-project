@@ -1,18 +1,15 @@
 package com.zerui.csproject.Controller;
 
-import com.zerui.csproject.Model.Personal.Account;
+import com.zerui.csproject.Model.Personal.AccountModel;
 import com.zerui.csproject.Model.Personal.User;
 import com.zerui.csproject.Utils.DEF;
 import com.zerui.csproject.Utils.Firebase;
 import com.zerui.csproject.Utils.Utils;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.AccessibleAction;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
@@ -69,7 +66,7 @@ public class CreatePostController {
         if (captionField.getText().isEmpty()) Utils.standard.addStyleSheet(new Alert(Alert.AlertType.ERROR, "Please enter a caption!")).showAndWait();
         else if (selFile.isEmpty()) Utils.standard.addStyleSheet(new Alert(Alert.AlertType.ERROR, "Please upload images!")).showAndWait();
         else {
-            Account currUser = User.getAccount();
+            AccountModel currUser = User.getAccount();
             String postID = Firebase.genUUID();
             ArrayList<String> imageLinks = new ArrayList<>();
             for (File file:selFile) {

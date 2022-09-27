@@ -22,4 +22,5 @@ module com.zerui.csproject.Model {
     exports com.zerui.csproject;
     opens com.zerui.csproject.Model.Personal to google.cloud.firestore;
     exports com.zerui.csproject.Model to google.cloud.firestore;
+    opens com.zerui.csproject.Model to google.cloud.firestore;
 }

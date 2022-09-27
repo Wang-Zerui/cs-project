@@ -1,5 +1,6 @@
 package com.zerui.csproject.Model;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class PostModel {
@@ -16,4 +17,12 @@ public class PostModel {
     }
 
     public PostModel() {}
+
+    public PostModel(PostModel p) {
+        this.uid = p.uid;
+        this.authorUid = p.authorUid;
+        this.caption = p.caption;
+        this.imagePosts = p.imagePosts;
+        this.time = p.time;
+    }
 }

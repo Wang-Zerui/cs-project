@@ -1,6 +1,7 @@
 package com.zerui.csproject.Controller;
 
 import com.zerui.csproject.Model.Personal.User;
+import com.zerui.csproject.Model.Post;
 import com.zerui.csproject.Model.PostModel;
 import com.zerui.csproject.SplashScreen;
 import com.zerui.csproject.Utils.Firebase;
@@ -50,7 +51,7 @@ public class MenuController {
         if (progressIndicator.isVisible()) return;
         try {
             Platform.runLater(() -> progressIndicator.setVisible(true));
-            Pane p = loadPost(getPost("8585457d-700e-46b9-9a8c-438b52bfd21a"));
+            Pane p = loadPost(getPost("6a2d062e-488d-40a2-9c26-63f84079060f"));
             Platform.runLater(() -> postScroll.getChildren().add(postScroll.getChildren().size()==1?0:postScroll.getChildren().size()-2, p));
             Platform.runLater(() -> progressIndicator.setVisible(false));
         } catch (IOException e) { throw new RuntimeException(e); }
@@ -96,7 +97,7 @@ public class MenuController {
         changeMode();
     }
 
-    private Pane loadPost(PostModel postModel) throws IOException {
+    private Pane loadPost(Post post) throws IOException {
         VBox p = Utils.standard.loadPane("fxml/userPost.fxml");
         Label username = (Label) p.lookup("#username");
         Label timestampLabel = (Label) p.lookup("#timestampLabel");
@@ -112,22 +113,17 @@ public class MenuController {
         username.setText("I hate my life");
         scrollLeft.setVisible(false);
         scrollRight.setVisible(false);
-        ArrayList<Image> images = new ArrayList<>();
-        for (String i:postModel.imagePosts) {
-            Image image = new Image(i);
-            images.add(image);
-        }
-        postImageView.setImage(images.get(0));
-        if (images.size()>1) scrollRight.setVisible(true);
-        Date date = new Date(postModel.time*1000);
+        postImageView.setImage(post.images.get(0));
+        if (post.images.size()>1) scrollRight.setVisible(true);
+        Date date = new Date(post.time*1000);
         SimpleDateFormat sdf = new SimpleDateFormat("MMMM d yyyy h:mm a", Locale.ENGLISH);
         String formattedDate = sdf.format(date);
         timestampLabel.setText(formattedDate);
         return p;
     }
 
-    private PostModel getPost(String uid) {
-        return Firebase.getPost(uid);
+    private Post getPost(String uid) {
+        return new Post(Firebase.getPost(uid));
     }
 
     private void changeMode() throws FileNotFoundException {
@@ -139,9 +135,5 @@ public class MenuController {
             homeImage.setImage(Utils.standard.loadImage("images/icons/Home-Filled.png"));
         }
         isDiscovery = !isDiscovery;
-    }
-
-    private void initDiscovery() {
-
     }
 }

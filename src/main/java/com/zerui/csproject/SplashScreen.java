@@ -5,10 +5,8 @@ import com.zerui.csproject.Utils.Mail;
 import com.zerui.csproject.Utils.Utils;
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.concurrent.*;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.*;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
@@ -17,12 +15,10 @@ import javafx.scene.layout.*;
 import javafx.stage.*;
 import javafx.util.Duration;
 import javafx.scene.image.Image;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.Objects;
 
 public class SplashScreen extends Application {
     private Pane splashLayout;

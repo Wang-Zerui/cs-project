@@ -1,20 +1,17 @@
 package com.zerui.csproject.Model.Personal;
 
+import com.zerui.csproject.Model.Post;
+import com.zerui.csproject.Utils.Firebase;
 
 import java.util.ArrayList;
-import java.util.UUID;
 
-public class Account {
-    public String name, username, about, uuid, profileLink;
-    public ArrayList<String> postsArrayUid;
-
-    public Account(String name, String username, String about, String uuid, String profileLink) {
-        this.name = name;
-        this.username = username;
-        this.about = about;
-        this.uuid = uuid;
-        this.profileLink = profileLink;
+public class Account extends AccountModel {
+    ArrayList<Post> posts = new ArrayList<>();
+    public Account(String uid) {
+        super(Firebase.getAccount(uid));
+        for (String i:super.postsArrayUid) {
+            posts.add(new Post(Firebase.getPost(i)));
+        }
     }
 
-    public Account() {}
 }
