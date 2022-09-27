@@ -9,8 +9,10 @@ public class Account extends AccountModel {
     ArrayList<Post> posts = new ArrayList<>();
     public Account(String uid) {
         super(Firebase.getAccount(uid));
-        for (String i:super.postsArrayUid) {
-            posts.add(new Post(Firebase.getPost(i)));
+        if (super.postsArrayUid!=null) {
+            for (String i:super.postsArrayUid) {
+                posts.add(new Post(Firebase.getPost(i)));
+            }
         }
     }
 
