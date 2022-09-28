@@ -51,7 +51,6 @@ public class CreatePostController {
     private void handleDropped(DragEvent event) throws FileNotFoundException {
         String[] validExt = {"jpg", "jpeg", "png"};
         List<File> files = event.getDragboard().getFiles();
-        dragDropPrompt.setVisible(false);
         for (File f:files) {
             if (!ArrayUtils.contains(validExt, FilenameUtils.getExtension(f.getName()))) {
                 Utils.standard.addStyleSheet(new Alert(Alert.AlertType.ERROR, "Invalid file type!")).showAndWait();
