@@ -13,6 +13,7 @@ import com.google.firebase.auth.UserRecord;
 import com.google.firebase.cloud.FirestoreClient;
 import com.google.firebase.cloud.StorageClient;
 import com.zerui.csproject.Model.Comment;
+import com.zerui.csproject.Model.CommentModel;
 import com.zerui.csproject.Model.Personal.AccountModel;
 import com.zerui.csproject.Model.Personal.User;
 import com.zerui.csproject.Model.PostModel;
@@ -122,13 +123,13 @@ public class Firebase {
             return document.toObject(PostModel.class);
         } catch (Exception e) {System.out.println(e.getMessage()); return null;}
     }
-    public static ArrayList<Comment> getComments(String postId) {
+    public static ArrayList<CommentModel> getComments(String postId) {
         try {
             ApiFuture<QuerySnapshot> future = db.collection("posts").document(postId).collection("comments").get();
             List<QueryDocumentSnapshot> documents = future.get().getDocuments();
-            ArrayList<Comment> comments = new ArrayList<>();
+            ArrayList<CommentModel> comments = new ArrayList<>();
             for (DocumentSnapshot document : documents) {
-                comments.add(document.toObject(Comment.class));
+                comments.add(document.toObject(CommentModel.class));
             }
             return comments;
         } catch (Exception e) {System.out.println(e.getMessage()); return new ArrayList<>();}

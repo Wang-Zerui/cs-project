@@ -9,7 +9,7 @@ import javafx.scene.image.Image;
 import java.util.ArrayList;
 
 public class Post extends PostModel implements Deletable {
-    public ArrayList<Comment> comments;
+    public ArrayList<Comment> comments = new ArrayList<>();
     public ArrayList<Image> images = new ArrayList<>();
     public Account author;
     public Post(PostModel p) {
@@ -27,7 +27,9 @@ public class Post extends PostModel implements Deletable {
     }
 
     private void loadComments() {
-        comments = Firebase.getComments(super.uid);
+        for (CommentModel i:Firebase.getComments(super.uid)) {
+            comments.add(new Comment(i));
+        }
     }
 
     @Override

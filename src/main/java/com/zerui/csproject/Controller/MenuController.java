@@ -43,35 +43,16 @@ public class MenuController {
     @FXML
     ImageView homeImage, explorePostImage;
     boolean isDiscovery;
-    Thread t = new Thread(new Runnable() {
-        @Override
-        public void run() {
 
-        }
-    });
-    Thread loadPost = new Thread(()-> {
-        if (progressIndicator.isVisible()) return;
-        try {
-            Platform.runLater(() -> progressIndicator.setVisible(true));
-            Pane p = loadPost(getPost("6a2d062e-488d-40a2-9c26-63f84079060f"));
-            Platform.runLater(() -> postScroll.getChildren().add(postScroll.getChildren().size()==1?0:postScroll.getChildren().size()-1, p)); // TODO FIX THIS
-            Platform.runLater(() -> progressIndicator.setVisible(false));
-        } catch (IOException e) { throw new RuntimeException(e); }
-    });
     @FXML
     protected void initialize() {
         progressIndicator.setVisible(false);
-        new Thread(loadPost).start();
+        loadPost("b9d2f283-25b6-4f79-b651-648709a2dcd7");
         scrollPane.vvalueProperty().addListener(
             (ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
-                if(newValue.doubleValue() >= 1.0) new Thread(loadPost).start();
+                if(newValue.doubleValue() >= 1.0) loadPost("b9d2f283-25b6-4f79-b651-648709a2dcd7");
         });
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                profileView.setFill(new ImagePattern(new Image(User.getAccount().profileLink)));
-            }
-        });
+        Platform.runLater(() -> profileView.setFill(new ImagePattern(new Image(User.getAccount().profileLink))));
     }
 
     @FXML
@@ -129,10 +110,12 @@ public class MenuController {
             if (index<0||index>=post.images.size()) return;
             postImageView.setImage(post.images.get(index));
         });
+        System.out.println(3);
         return p;
     }
 
     private Post getPost(String uid) {
+        System.out.println(1);
         return new Post(Firebase.getPost(uid));
     }
 
@@ -145,5 +128,18 @@ public class MenuController {
             homeImage.setImage(Utils.standard.loadImage("images/icons/Home-Filled.png"));
         }
         isDiscovery = !isDiscovery;
+    }
+
+    private void loadPost(String uid) {
+        new Thread(()-> {
+            if (progressIndicator.isVisible()) return;
+            try {
+                Platform.runLater(() -> progressIndicator.setVisible(true));
+                System.out.println(2);
+                Pane p = loadPost(getPost(uid));
+                Platform.runLater(() -> postScroll.getChildren().add(postScroll.getChildren().size()-1, p));
+                Platform.runLater(() -> progressIndicator.setVisible(false));
+            } catch (IOException e) { throw new RuntimeException(e); }
+        }).start();
     }
 }
