@@ -31,7 +31,7 @@ public class SplashScreen extends Application {
 
     @Override
     public void init() throws FileNotFoundException {
-        ImageView splash = new ImageView(new Image(new FileInputStream(getClass().getResource("images/splash.png").getPath())));
+        ImageView splash = new ImageView(new Image(getClass().getResourceAsStream("images/splash.png")));
         loadProgress = new ProgressBar();
         splashLayout = new VBox();
         loadProgress.setMinWidth(270);

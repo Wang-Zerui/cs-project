@@ -2,17 +2,12 @@ package com.zerui.csproject.Controller;
 
 import com.zerui.csproject.Model.Personal.User;
 import com.zerui.csproject.Model.Post;
-import com.zerui.csproject.Model.PostModel;
-import com.zerui.csproject.SplashScreen;
 import com.zerui.csproject.Utils.Firebase;
 import com.zerui.csproject.Utils.Utils;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.AccessibleAction;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -22,11 +17,9 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
-
 import java.io.FileNotFoundException;
 import java.util.Date;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
@@ -48,10 +41,10 @@ public class MenuController {
     @FXML
     protected void initialize() {
         progressIndicator.setVisible(false);
-        loadPost("b9d2f283-25b6-4f79-b651-648709a2dcd7");
+        loadPost("19194afe-d09f-49d2-9116-2215a956ddaf");
         scrollPane.vvalueProperty().addListener(
             (ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
-                if(newValue.doubleValue() >= 1.0) loadPost("b9d2f283-25b6-4f79-b651-648709a2dcd7");
+                if(newValue.doubleValue() >= 1.0) loadPost("19194afe-d09f-49d2-9116-2215a956ddaf");
         });
         Platform.runLater(() -> profileView.setFill(new ImagePattern(new Image(User.getAccount().profileLink))));
     }

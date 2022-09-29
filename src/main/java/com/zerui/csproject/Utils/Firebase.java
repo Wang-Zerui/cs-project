@@ -107,9 +107,6 @@ public class Firebase {
             return true;
         } catch (FirebaseAuthException ignore) { return false; }
     }
-    public static ArrayList<String> getPostImages(String uuid) {
-        return null;
-    }
     public static AccountModel getAccount(String uid) {
         try {
             ApiFuture<DocumentSnapshot> future = db.collection("users").document(uid).get();
