@@ -145,10 +145,8 @@ public class MenuController {
     }
 
     private void postLoader() {
-        System.out.println("Hello20");
         if (postCount>=posts.size()) return;
-        System.out.println("Hello2");
-        postCount++;
         loadPost(posts.get(postCount));
+        postCount++;
     }
 }
