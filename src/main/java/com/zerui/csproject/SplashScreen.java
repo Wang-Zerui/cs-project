@@ -64,6 +64,9 @@ public class SplashScreen extends Application {
                 this::showMainStage
         );
         new Thread(initApp).start();
+        String s = "11";
+        s.charAt(1);
+        boolean a = s=="1";
     }
 
     private void showMainStage() throws IOException {

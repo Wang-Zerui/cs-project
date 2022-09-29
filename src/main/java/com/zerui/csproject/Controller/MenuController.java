@@ -1,5 +1,10 @@
 package com.zerui.csproject.Controller;
 
+import com.google.api.core.ApiFuture;
+import com.google.cloud.firestore.CollectionReference;
+import com.google.cloud.firestore.Query;
+import com.google.cloud.firestore.QueryDocumentSnapshot;
+import com.google.cloud.firestore.QuerySnapshot;
 import com.zerui.csproject.Model.Personal.User;
 import com.zerui.csproject.Model.Post;
 import com.zerui.csproject.Utils.Firebase;
@@ -18,9 +23,11 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
@@ -36,17 +43,27 @@ public class MenuController {
     Circle profileView;
     @FXML
     ImageView homeImage, explorePostImage;
-    boolean isDiscovery;
-
+    ArrayList<String> posts;
+    int postCount = 0;
     @FXML
     protected void initialize() {
         progressIndicator.setVisible(false);
-        loadPost("19194afe-d09f-49d2-9116-2215a956ddaf");
+        System.out.println("hello1");
+        new Thread(() -> {
+            try {
+                posts = Firebase.loadPosts();
+                System.out.println("hello3");
+            } catch (ExecutionException | InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            postLoader();
+        }).start();
         scrollPane.vvalueProperty().addListener(
             (ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
-                if(newValue.doubleValue() >= 1.0) loadPost("19194afe-d09f-49d2-9116-2215a956ddaf");
+                if(newValue.doubleValue() >= 0.95) postLoader();
         });
         Platform.runLater(() -> profileView.setFill(new ImagePattern(new Image(User.getAccount().profileLink))));
+
     }
 
     @FXML
@@ -62,16 +79,6 @@ public class MenuController {
         createPost.setTitle("Create Post!");
         createPost.setScene(scene);
         createPost.show();
-    }
-
-    @FXML
-    private void goHome() throws FileNotFoundException {
-        changeMode();
-    }
-
-    @FXML
-    protected void explorePosts() throws FileNotFoundException {
-        changeMode();
     }
 
     private Pane loadPost(Post post) throws IOException, ExecutionException, InterruptedException {
@@ -113,16 +120,16 @@ public class MenuController {
         return new Post(Firebase.getPost(uid));
     }
 
-    private void changeMode() throws FileNotFoundException {
-        if (isDiscovery) {
-            explorePostImage.setImage(Utils.standard.loadImage("images/icons/Find-People.png"));
-            homeImage.setImage(Utils.standard.loadImage("images/icons/Home.png"));
-        } else {
-            explorePostImage.setImage(Utils.standard.loadImage("images/icons/Found-People.png"));
-            homeImage.setImage(Utils.standard.loadImage("images/icons/Home-Filled.png"));
-        }
-        isDiscovery = !isDiscovery;
-    }
+//    private void changeMode() throws FileNotFoundException {
+//        if (isDiscovery) {
+//            explorePostImage.setImage(Utils.standard.loadImage("images/icons/Find-People.png"));
+//            homeImage.setImage(Utils.standard.loadImage("images/icons/Home.png"));
+//        } else {
+//            explorePostImage.setImage(Utils.standard.loadImage("images/icons/Found-People.png"));
+//            homeImage.setImage(Utils.standard.loadImage("images/icons/Home-Filled.png"));
+//        }
+//        isDiscovery = !isDiscovery;
+//    }
 
     private void loadPost(String uid) {
         new Thread(()-> {
@@ -135,5 +142,13 @@ public class MenuController {
                 Platform.runLater(() -> progressIndicator.setVisible(false));
             } catch (IOException | InterruptedException | ExecutionException e) { throw new RuntimeException(e); }
         }).start();
+    }
+
+    private void postLoader() {
+        System.out.println("Hello20");
+        if (postCount>=posts.size()) return;
+        System.out.println("Hello2");
+        postCount++;
+        loadPost(posts.get(postCount));
     }
 }

@@ -148,4 +148,13 @@ public class Firebase {
     public static String getProfileURL(String userUid) throws ExecutionException, InterruptedException {
         return db.collection("users").document(userUid).get().get().getString("profileLink");
     }
+    public static ArrayList<String> loadPosts() throws ExecutionException, InterruptedException {
+        CollectionReference posts = Firebase.db.collection("posts");
+        Query firstPage = posts.orderBy("time");
+        ArrayList<String> postID = new ArrayList<>();
+        for (QueryDocumentSnapshot i:firstPage.get().get().getDocuments()) {
+            postID.add(i.getId());
+        }
+        return postID;
+    }
 }
