@@ -27,6 +27,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.time.Instant;
 import java.util.*;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 public class Firebase {
@@ -77,9 +78,9 @@ public class Firebase {
         db.collection("registered").document("username").set(regArray, SetOptions.merge());
         sendVerificationEmail(email);
     }
-    public static String getName(String userHash) {
+    public static String getUsername(String uid) {
         try {
-            return db.collection("users").document(userHash).get().get().getString("name");
+            return db.collection("users").document(uid).get().get().getString("username");
         } catch (Exception e) { return "Fatal Error"; }
     }
     public static URL uploadFile(File file, String path) throws IOException {
@@ -146,5 +147,8 @@ public class Firebase {
         docData.put("postsArrayUid", new ArrayList<>(Collections.singletonList(postID)));
         Firebase.db.collection("posts").document(postID).set(model);
         Firebase.db.collection("users").document(User.getAccount().uuid).set(docData, SetOptions.merge());
+    }
+    public static String getProfileURL(String userUid) throws ExecutionException, InterruptedException {
+        return db.collection("users").document(userUid).get().get().getString("profileLink");
     }
 }

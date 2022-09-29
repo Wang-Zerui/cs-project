@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
+import java.util.concurrent.ExecutionException;
 
 public class MenuController {
     public static Stage createPost;
@@ -80,7 +81,7 @@ public class MenuController {
         changeMode();
     }
 
-    private Pane loadPost(Post post) throws IOException {
+    private Pane loadPost(Post post) throws IOException, ExecutionException, InterruptedException {
         VBox p = Utils.standard.loadPane("fxml/userPost.fxml");
         Label username = (Label) p.lookup("#username");
         Label timestampLabel = (Label) p.lookup("#timestampLabel");
@@ -93,13 +94,13 @@ public class MenuController {
         ImageView postImageView = (ImageView) p.lookup("#postImageView");
         ImageView viewComments = (ImageView) p.lookup("#viewComments");
         ImageView like = (ImageView) p.lookup("#like");
-        username.setText(post.author.username);
+        username.setText(Firebase.getUsername(post.authorUid));
         postImageView.setImage(post.images.get(0));
         Date date = new Date(post.time*1000);
         SimpleDateFormat sdf = new SimpleDateFormat("MMMM d yyyy h:mm a", Locale.ENGLISH);
         String formattedDate = sdf.format(date);
         timestampLabel.setText(formattedDate);
-        imageProfile.setFill(new ImagePattern(new Image(post.author.profileLink)));
+        imageProfile.setFill(new ImagePattern(new Image(Firebase.getProfileURL(post.authorUid))));
         scrollRight.setOnAction(actionEvent -> {
             int index = post.images.indexOf(postImageView.getImage())+1;
             if (index<0||index>=post.images.size()) return;
@@ -139,7 +140,7 @@ public class MenuController {
                 Pane p = loadPost(getPost(uid));
                 Platform.runLater(() -> postScroll.getChildren().add(postScroll.getChildren().size()-1, p));
                 Platform.runLater(() -> progressIndicator.setVisible(false));
-            } catch (IOException e) { throw new RuntimeException(e); }
+            } catch (IOException | InterruptedException | ExecutionException e) { throw new RuntimeException(e); }
         }).start();
     }
 }
