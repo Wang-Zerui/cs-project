@@ -27,12 +27,12 @@
       <RowConstraints maxHeight="81.22116088867188" minHeight="10.0" prefHeight="30.86322021484375" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Label text="Name" />
-      <TextField fx:id="name" promptText="Enter Name" GridPane.columnIndex="1" />
-      <Label text="Username" GridPane.rowIndex="1" />
-      <Label text="Password" GridPane.rowIndex="2" />
-      <TextField fx:id="username" onKeyTyped="#usernameChange" promptText="Enter Username" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <Label text="Profile Picture" GridPane.rowIndex="5" />
+      <Label text="%name" />
+      <TextField fx:id="name" promptText="%name.enter" GridPane.columnIndex="1" />
+      <Label text="%username" GridPane.rowIndex="1" />
+      <Label text="%password" GridPane.rowIndex="2" />
+      <TextField fx:id="username" onKeyTyped="#usernameChange" promptText="%username.enter" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <Label text="%profilePicture" GridPane.rowIndex="5" />
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
          <children>
             <ImageView fx:id="profileView" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
@@ -40,19 +40,19 @@
                   <Image url="@../images/noprofile.png" />
                </image>
             </ImageView>
-            <Button mnemonicParsing="false" onAction="#changeImage" text="Upload Image">
+            <Button mnemonicParsing="false" onAction="#changeImage" text="%uploadImage">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
             </Button>
          </children>
       </VBox>
-      <Label text="Email" GridPane.rowIndex="4" />
-      <TextField fx:id="email" promptText="Enter email" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-      <PasswordField fx:id="password" promptText="Enter Password" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <Label text="Confirm Password" GridPane.rowIndex="3" />
-      <PasswordField fx:id="confirmPassword" promptText="Confirm Password" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-      <Button mnemonicParsing="false" onAction="#signUpPressed" prefHeight="26.0" prefWidth="295.0" text="Sign Up" GridPane.columnSpan="2" GridPane.rowIndex="6" />
+      <Label text="%email" GridPane.rowIndex="4" />
+      <TextField fx:id="email" promptText="%email.enter" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <PasswordField fx:id="password" promptText="%password.enter" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <Label text="%password.confirm" GridPane.rowIndex="3" />
+      <PasswordField fx:id="confirmPassword" promptText="%password.confirm" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <Button mnemonicParsing="false" onAction="#signUpPressed" prefHeight="26.0" prefWidth="295.0" text="%signup" GridPane.columnSpan="2" GridPane.rowIndex="6" />
    </children>
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
