@@ -15,6 +15,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.apache.commons.validator.routines.EmailValidator;
 import java.io.IOException;
+import java.util.Locale;
 import java.util.Optional;
 
 public class LoginController {
@@ -23,6 +24,10 @@ public class LoginController {
     TextField email;
     @FXML
     PasswordField password;
+//    @FXML
+//    protected void initialize() {
+//
+//    }
     @FXML
     protected void loginButtonPressed() throws IOException {
         login();
@@ -84,4 +89,5 @@ public class LoginController {
             alert.show();
         }
     }
+
 }

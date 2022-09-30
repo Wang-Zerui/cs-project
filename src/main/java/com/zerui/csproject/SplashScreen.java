@@ -19,6 +19,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ResourceBundle;
 
 public class SplashScreen extends Application {
     private Pane splashLayout;
@@ -64,13 +65,11 @@ public class SplashScreen extends Application {
                 this::showMainStage
         );
         new Thread(initApp).start();
-        String s = "11";
-        s.charAt(1);
-        boolean a = s=="1";
     }
 
     private void showMainStage() throws IOException {
-        Pane p = FXMLLoader.load(Utils.standard.fxmlPath("loginView.fxml"));
+        ResourceBundle resources = ResourceBundle.getBundle("com/zerui/csproject/languages/login");;
+        Pane p = FXMLLoader.load(Utils.standard.fxmlPath("loginView.fxml"), resources);
         Scene scene = new Scene(p);
         stage =  new Stage();
         stage.setTitle("Hello!");

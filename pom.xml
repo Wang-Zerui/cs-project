@@ -11,20 +11,45 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <junit.version>5.8.1</junit.version>
+        <junit.version>5.9.0</junit.version>
+        <javafxVer>17.0.1</javafxVer>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>17.0.1</version>
+            <version>${javafxVer}</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>17.0.1</version>
+            <version>${javafxVer}</version>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.openjfx</groupId>-->
+<!--            <artifactId>javafx-graphics</artifactId>-->
+<!--            <version>${javafxVer}</version>-->
+<!--            <classifier>win</classifier>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.openjfx</groupId>-->
+<!--            <artifactId>javafx-graphics</artifactId>-->
+<!--            <version>${javafxVer}</version>-->
+<!--            <classifier>linux</classifier>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.openjfx</groupId>-->
+<!--            <artifactId>javafx-graphics</artifactId>-->
+<!--            <version>${javafxVer}</version>-->
+<!--            <classifier>mac</classifier>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.openjfx</groupId>-->
+<!--            <artifactId>javafx-graphics</artifactId>-->
+<!--            <version>${javafxVer}</version>-->
+<!--            <classifier>mac-aarch64</classifier>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
