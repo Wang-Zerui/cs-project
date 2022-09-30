@@ -52,6 +52,7 @@ public class MenuController {
         new Thread(() -> {
             try {
                 posts = Firebase.loadPosts();
+                System.out.println("size:"+posts.size());
                 System.out.println("hello3");
             } catch (ExecutionException | InterruptedException e) {
                 throw new RuntimeException(e);
@@ -136,7 +137,7 @@ public class MenuController {
             if (progressIndicator.isVisible()) return;
             try {
                 Platform.runLater(() -> progressIndicator.setVisible(true));
-                System.out.println(2);
+                System.out.println(uid);
                 Pane p = loadPost(getPost(uid));
                 Platform.runLater(() -> postScroll.getChildren().add(postScroll.getChildren().size()-1, p));
                 Platform.runLater(() -> progressIndicator.setVisible(false));
@@ -147,6 +148,7 @@ public class MenuController {
     private void postLoader() {
         if (postCount>=posts.size()) return;
         loadPost(posts.get(postCount));
+        System.out.println("currind" + postCount);
         postCount++;
     }
 }
