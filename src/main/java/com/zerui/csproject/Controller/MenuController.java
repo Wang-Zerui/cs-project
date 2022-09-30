@@ -51,6 +51,7 @@ public class MenuController {
     }
 
     protected void init() {
+        System.out.println("init");
         progressIndicator.setVisible(false);
         postScroll.getChildren().clear();
         postScroll.getChildren().add(progressIndicator);
@@ -78,12 +79,10 @@ public class MenuController {
         createPost.setScene(scene);
         createPost.setTitle("Create Post!");
         createPost.setScene(scene);
-        createPost.setOnCloseRequest(windowEvent -> {
+        createPost.setOnHidden(windowEvent -> {
             if (reload) {
-                System.out.println("i hate life");
                 init();
                 reload = false;
-                System.out.println("HELLOS");
             }
         });
         createPost.show();

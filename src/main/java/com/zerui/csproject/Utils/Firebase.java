@@ -137,13 +137,13 @@ public class Firebase {
         String postID = Firebase.genUUID();
         ArrayList<String> imageLinks = new ArrayList<>();
         for (File file:selFile) {
-            imageLinks.add(Firebase.uploadFile(file, String.format("posts/%s/%s", postID ,file.getName())).toString());
+            imageLinks.add(Firebase.uploadFile(file, String.format("posts/%s/%s", postID , file.getName())).toString());
         }
         PostModel model = new PostModel(postID, currUser.uuid, caption, imageLinks, Instant.now().getEpochSecond());
         Map<String, Object> docData = new HashMap<>();
         docData.put("postsArrayUid", new ArrayList<>(Collections.singletonList(postID)));
         Firebase.db.collection("posts").document(postID).set(model);
-        Firebase.db.collection("users").document(User.getAccount().uuid).set(docData, SetOptions.merge());
+        Firebase.db.collection("users").document(User.getAccount().uuid).set(docData, SetOptions.mergeFields("postsArrayUid"));
     }
     public static String getProfileURL(String userUid) throws ExecutionException, InterruptedException {
         return db.collection("users").document(userUid).get().get().getString("profileLink");
