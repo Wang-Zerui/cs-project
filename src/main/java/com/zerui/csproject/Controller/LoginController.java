@@ -71,6 +71,14 @@ public class LoginController {
         DEF.isCN = !DEF.isCN;
         SplashScreen.getStage().setScene(new Scene(FXMLLoader.load(Utils.standard.fxmlPath("loginView.fxml"), Utils.getBundle())));
     }
+    @FXML
+    protected void aboutProgrammer() throws IOException {
+        Pane p = FXMLLoader.load(Utils.standard.fxmlPath("aboutProgrammer.fxml"), Utils.getBundle());
+        Scene scene = new Scene(p);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
+    }
     private void login() throws IOException {
         int status = User.login(email.getText(), password.getText());
         if (status==2) {

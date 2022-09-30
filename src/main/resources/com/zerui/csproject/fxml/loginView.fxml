@@ -52,7 +52,7 @@
                            <Insets right="5.0" />
                         </HBox.margin>
                      </Button>
-                     <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="%about" HBox.hgrow="ALWAYS">
+                     <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#aboutProgrammer" text="%about" HBox.hgrow="ALWAYS">
                         <HBox.margin>
                            <Insets left="5.0" />
                         </HBox.margin>

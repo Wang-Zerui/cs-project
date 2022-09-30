@@ -11,7 +11,7 @@
    <children>
       <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="57.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../../../../../../Downloads/catatos_zhiyu_fbe4dd07-45b9-4c19-a715-5692222b5da0.png" />
+            <Image url="@../images/aboutProgrammer.png" />
          </image>
       </ImageView>
       <Label layoutX="328.0" layoutY="107.0" text="About Programmer">
@@ -19,5 +19,6 @@
             <Font name="System Bold" size="26.0" />
          </font>
       </Label>
+      <Label layoutX="302.0" layoutY="136.0" prefHeight="137.0" prefWidth="264.0" text="Commonly known by the name iamnumber4, this programmer decided that it would be a good idea to create a social media app using Firebase. Trivia: the username iamnumber4 comes from the book series &quot;I am number four&quot;. " textOverrun="CLIP" wrapText="true" />
    </children>
 </AnchorPane>
