@@ -18,6 +18,7 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -41,26 +42,30 @@ public class MenuController {
     int postCount = 0;
     @FXML
     protected void initialize() {
+        init();
+        scrollPane.vvalueProperty().addListener(
+            (ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
+                if(newValue.doubleValue() >= 0.95&&!progressIndicator.isVisible()) postLoader();
+        });
+        Platform.runLater(() -> profileView.setFill(new ImagePattern(new Image(User.getAccount().profileLink))));
+    }
+
+    protected void init() {
         progressIndicator.setVisible(false);
         postScroll.getChildren().clear();
         postScroll.getChildren().add(progressIndicator);
+        postCount = 0;
         new Thread(() -> {
             try {
                 posts = Firebase.loadPosts();
+                Collections.reverse(posts);
                 System.out.println("size:"+posts.size());
             } catch (ExecutionException | InterruptedException e) {
                 throw new RuntimeException(e);
             }
             postLoader();
         }).start();
-        scrollPane.vvalueProperty().addListener(
-            (ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
-                if(newValue.doubleValue() >= 0.95) postLoader();
-        });
-        Platform.runLater(() -> profileView.setFill(new ImagePattern(new Image(User.getAccount().profileLink))));
     }
-
-
     @FXML
     protected void createPost() throws IOException {
         Pane p = FXMLLoader.load(Utils.standard.fxmlPath("createPost.fxml"), Utils.getBundle());
@@ -75,8 +80,10 @@ public class MenuController {
         createPost.setScene(scene);
         createPost.setOnCloseRequest(windowEvent -> {
             if (reload) {
-                initialize();
+                System.out.println("i hate life");
+                init();
                 reload = false;
+                System.out.println("HELLOS");
             }
         });
         createPost.show();
