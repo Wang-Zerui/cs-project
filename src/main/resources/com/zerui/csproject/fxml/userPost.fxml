@@ -32,9 +32,9 @@
             </Label>
          </children>
       </HBox>
-      <StackPane prefHeight="450.0" prefWidth="450.0">
+      <StackPane prefHeight="450.0" prefWidth="0.0">
          <children>
-            <ImageView fx:id="postImageView" fitHeight="450.0" fitWidth="450.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="postImageView" fitHeight="450.0" fitWidth="445.0" pickOnBounds="true" preserveRatio="true" />
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                <children>
                   <Button fx:id="scrollLeft" mnemonicParsing="false" style="-fx-background-color: 000000;" text="&lt;">
@@ -84,11 +84,16 @@
             </Label>
             <Label fx:id="likeCount" text="Liked by 100" VBox.vgrow="ALWAYS">
                <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" />
+                  <Insets left="5.0" />
                </VBox.margin>
                <font>
                   <Font name="SF Pro Display Regular" size="15.0" />
                </font>
+            </Label>
+            <Label fx:id="captionLabel" text="Caption">
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" />
+               </VBox.margin>
             </Label>
             <Separator prefWidth="200.0" />
             <HBox alignment="CENTER" prefHeight="50.0" prefWidth="450.0">

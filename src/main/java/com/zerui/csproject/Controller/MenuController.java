@@ -93,6 +93,7 @@ public class MenuController {
         Label username = (Label) p.lookup("#username");
         Label timestampLabel = (Label) p.lookup("#timestampLabel");
         Label likeCount = (Label) p.lookup("#likeCount");
+        Label caption = (Label) p.lookup("#captionLabel");
         Button scrollLeft = (Button) p.lookup("#scrollLeft");
         Button scrollRight = (Button) p.lookup("#scrollRight");
         Button postComment = (Button) p.lookup("#postComment");
@@ -108,6 +109,7 @@ public class MenuController {
         String formattedDate = sdf.format(date);
         timestampLabel.setText(formattedDate);
         imageProfile.setFill(new ImagePattern(new Image(Firebase.getProfileURL(post.authorUid))));
+        caption.setText(post.caption);
         scrollRight.setOnAction(actionEvent -> {
             int index = post.images.indexOf(postImageView.getImage())+1;
             if (index>=post.images.size()) return;
