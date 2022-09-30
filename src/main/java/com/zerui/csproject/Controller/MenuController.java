@@ -37,7 +37,7 @@ public class MenuController {
     @FXML
     Circle profileView;
     @FXML
-    ImageView homeImage, explorePostImage;
+    ImageView homeImage;
     ArrayList<String> posts;
     int postCount = 0;
     @FXML
@@ -86,6 +86,11 @@ public class MenuController {
             }
         });
         createPost.show();
+    }
+
+    @FXML
+    protected void refresh() {
+        init();
     }
 
     private Pane loadPost(Post post) throws IOException, ExecutionException, InterruptedException {

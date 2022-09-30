@@ -23,7 +23,7 @@
                   <TextField prefHeight="35.0" prefWidth="230.0" />
                </children>
             </HBox>
-                <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="0.0" style="-fx-background-color: 000000;">
+                <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="54.0" style="-fx-background-color: 000000;">
                     <graphic>
                         <ImageView fx:id="homeImage" fitHeight="18.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -32,7 +32,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-            <Button mnemonicParsing="false" onAction="#createPost" prefHeight="26.0" prefWidth="0.0" style="-fx-background-color: 000000;">
+            <Button mnemonicParsing="false" onAction="#createPost" prefHeight="35.0" prefWidth="45.0" style="-fx-background-color: 000000;">
                <graphic>
                   <ImageView fitHeight="18.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -41,11 +41,11 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="0.0" style="-fx-background-color: 000000;">
+            <Button mnemonicParsing="false" onAction="#refresh" prefHeight="0.0" prefWidth="0.0" style="-fx-background-color: 000000;">
                <graphic>
-                  <ImageView fx:id="explorePostImage" fitHeight="18.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="22.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/icons/Find-People.png" />
+                        <Image url="@../images/icons/Refresh.png" />
                      </image>
                   </ImageView>
                </graphic>
