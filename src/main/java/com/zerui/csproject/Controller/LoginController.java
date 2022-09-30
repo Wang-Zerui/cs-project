@@ -17,6 +17,7 @@ import org.apache.commons.validator.routines.EmailValidator;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
 public class LoginController {
     static Stage signUpStage;
@@ -42,11 +43,12 @@ public class LoginController {
     }
     @FXML
     protected void signUp() throws IOException {
-        Pane p = FXMLLoader.load(Utils.standard.fxmlPath("signUpView.fxml"));
+        ResourceBundle resources = ResourceBundle.getBundle("com/zerui/csproject/languages/signup", new Locale("CN"));
+        Pane p = FXMLLoader.load(Utils.standard.fxmlPath("signUpView.fxml"), resources);
         Scene scene = new Scene(p, 300, 500);
         signUpStage = new Stage();
         signUpStage.setScene(scene);
-        signUpStage.setTitle("Hello!");
+        signUpStage.setTitle("Sign Up!");
         signUpStage.setScene(scene);
         signUpStage.show();
     }
