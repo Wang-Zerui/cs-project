@@ -25,7 +25,7 @@
             </ScrollPane>
          </children>
       </VBox>
-      <Label fx:id="dragDropPrompt" alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="121.0" style="-fx-background-color: #00000000; -fx-font-size: 1.2em; -fx-border-radius: 7; -fx-background-radius: 7; -fx-border-color: #00FFFF;" text="Drag and Drop" textAlignment="CENTER">
+      <Label fx:id="dragDropPrompt" alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="121.0" style="-fx-background-color: #00000000; -fx-font-size: 1.2em; -fx-border-radius: 7; -fx-background-radius: 7; -fx-border-color: #00FFFF;" text="%dragDrop" textAlignment="CENTER">
          <VBox.margin>
             <Insets bottom="10.0" />
          </VBox.margin>
@@ -40,7 +40,7 @@
       </Separator>
       <HBox alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#uploadFile" style="-fx-background-color: #106BFF;" text="Upload File" textAlignment="CENTER">
+            <Button mnemonicParsing="false" onAction="#uploadFile" style="-fx-background-color: #106BFF;" text="%uploadImage" textAlignment="CENTER">
                <HBox.margin>
                   <Insets top="10.0" />
                </HBox.margin>
@@ -49,12 +49,12 @@
       </HBox>
       <HBox>
          <children>
-            <TextField fx:id="captionField" promptText="Enter a caption..." HBox.hgrow="ALWAYS">
+            <TextField fx:id="captionField" promptText="%enterCaption" HBox.hgrow="ALWAYS">
                <HBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </HBox.margin>
             </TextField>
-            <Button mnemonicParsing="false" onAction="#createPost" text="Post">
+            <Button mnemonicParsing="false" onAction="#createPost" text="%post">
                <HBox.margin>
                   <Insets bottom="10.0" right="10.0" top="10.0" />
                </HBox.margin>

@@ -43,8 +43,7 @@ public class LoginController {
     }
     @FXML
     protected void signUp() throws IOException {
-        ResourceBundle resources = ResourceBundle.getBundle("com/zerui/csproject/languages/signup", new Locale("CN"));
-        Pane p = FXMLLoader.load(Utils.standard.fxmlPath("signUpView.fxml"), resources);
+        Pane p = FXMLLoader.load(Utils.standard.fxmlPath("signUpView.fxml"), Utils.getBundle());
         Scene scene = new Scene(p, 300, 500);
         signUpStage = new Stage();
         signUpStage.setScene(scene);
@@ -66,6 +65,11 @@ public class LoginController {
             else Utils.standard.addStyleSheet(new Alert(Alert.AlertType.ERROR, "Email does not exist!")).showAndWait();
             else Utils.standard.addStyleSheet(new Alert(Alert.AlertType.ERROR, "Invalid email!")).showAndWait();
         });
+    }
+    @FXML
+    protected void switchLanguage() throws IOException {
+        DEF.isCN = !DEF.isCN;
+        SplashScreen.getStage().setScene(new Scene(FXMLLoader.load(Utils.standard.fxmlPath("loginView.fxml"), Utils.getBundle())));
     }
     private void login() throws IOException {
         int status = User.login(email.getText(), password.getText());

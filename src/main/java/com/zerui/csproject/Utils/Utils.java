@@ -10,11 +10,13 @@ import javafx.scene.layout.Pane;
 import net.harawata.appdirs.AppDirs;
 import net.harawata.appdirs.impl.*;
 
+import java.awt.geom.RectangularShape;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
 import static com.zerui.csproject.Utils.DEF.*;
 
@@ -42,5 +44,7 @@ public class Utils {
     public void main(String[] args) {
         System.out.println(path);
     }
-    public Image loadImage(String path) throws FileNotFoundException { return new Image(new FileInputStream(SplashScreen.class.getResource(path).getPath()));}
+    public static ResourceBundle getBundle() {
+        return isCN? resources_CN:resources_EN;
+    }
 }

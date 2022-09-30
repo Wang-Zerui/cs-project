@@ -1,5 +1,6 @@
 package com.zerui.csproject;
 
+import com.zerui.csproject.Utils.DEF;
 import com.zerui.csproject.Utils.Firebase;
 import com.zerui.csproject.Utils.Mail;
 import com.zerui.csproject.Utils.Utils;
@@ -69,13 +70,13 @@ public class SplashScreen extends Application {
     }
 
     private void showMainStage() throws IOException {
-        ResourceBundle resources = ResourceBundle.getBundle("com/zerui/csproject/languages/login", new Locale("CN"));
-        Pane p = FXMLLoader.load(Utils.standard.fxmlPath("loginView.fxml"), resources);
+
+        Pane p = FXMLLoader.load(Utils.standard.fxmlPath("loginView.fxml"), DEF.resources_EN);
         Scene scene = new Scene(p);
         stage =  new Stage();
         stage.setTitle("Hello!");
         stage.setScene(scene);
-        stage.setMinHeight(380);
+        stage.setMinHeight(400);
         stage.setMinWidth(250);
         stage.show();
     }
