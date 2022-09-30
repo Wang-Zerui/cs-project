@@ -16,6 +16,7 @@ import com.zerui.csproject.Model.Comment;
 import com.zerui.csproject.Model.CommentModel;
 import com.zerui.csproject.Model.Personal.AccountModel;
 import com.zerui.csproject.Model.Personal.User;
+import com.zerui.csproject.Model.Post;
 import com.zerui.csproject.Model.PostModel;
 import com.zerui.csproject.SplashScreen;
 
@@ -141,9 +142,9 @@ public class Firebase {
         }
         PostModel model = new PostModel(postID, currUser.uuid, caption, imageLinks, Instant.now().getEpochSecond());
         Map<String, Object> docData = new HashMap<>();
-        docData.put("postsArrayUid", new ArrayList<>(Collections.singletonList(postID)));
-        Firebase.db.collection("posts").document(postID).set(model);
-        Firebase.db.collection("users").document(User.getAccount().uuid).set(docData, SetOptions.mergeFields("postsArrayUid"));
+        docData.put("postsArrayUid", Collections.singletonList(postID));
+        db.collection("posts").document(postID).set(model);
+        db.collection("users").document(User.getAccount().uuid).set(docData, SetOptions.merge());
     }
     public static String getProfileURL(String userUid) throws ExecutionException, InterruptedException {
         return db.collection("users").document(userUid).get().get().getString("profileLink");
@@ -156,5 +157,16 @@ public class Firebase {
             postID.add(i.getId());
         }
         return postID;
+    }
+    public static void changeLikeStatus(Post p) { // TODO Implement Like
+        if (likedPost(p)) {
+
+
+        } else {
+
+        }
+    }
+    public static boolean likedPost(Post p) {
+        return p.likeUid.contains(User.getAccount().uuid);
     }
 }

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class PostModel {
     public String uid, authorUid, caption;
-    public ArrayList<String> imagePosts;
+    public ArrayList<String> imagePosts, likeUid;
     public long time;
 
     public PostModel(String uid, String authorUid, String caption, ArrayList<String> imagePosts, long time) {
@@ -14,6 +14,7 @@ public class PostModel {
         this.caption = caption;
         this.imagePosts = imagePosts;
         this.time = time;
+        this.likeUid = new ArrayList<>();
     }
 
     public PostModel() {}
@@ -24,5 +25,6 @@ public class PostModel {
         this.caption = p.caption;
         this.imagePosts = p.imagePosts;
         this.time = p.time;
+        this.likeUid = new ArrayList<>();
     }
 }
