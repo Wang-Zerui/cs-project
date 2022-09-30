@@ -67,6 +67,7 @@ public class CreatePostController {
         else {
             Firebase.createPost(selFile, captionField.getText());
             Utils.standard.addStyleSheet(new Alert(Alert.AlertType.INFORMATION, "Post created successfully!")).showAndWait();
+            MenuController.reload = true;
             MenuController.createPost.close();
         }
     }

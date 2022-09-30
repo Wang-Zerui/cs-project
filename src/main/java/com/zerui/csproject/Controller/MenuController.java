@@ -1,10 +1,5 @@
 package com.zerui.csproject.Controller;
 
-import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.CollectionReference;
-import com.google.cloud.firestore.Query;
-import com.google.cloud.firestore.QueryDocumentSnapshot;
-import com.google.cloud.firestore.QuerySnapshot;
 import com.zerui.csproject.Model.Personal.User;
 import com.zerui.csproject.Model.Post;
 import com.zerui.csproject.Utils.Firebase;
@@ -22,17 +17,16 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
 public class MenuController {
     public static Stage createPost;
+    public static boolean reload = false;
     @FXML
     VBox postScroll;
     @FXML
@@ -48,12 +42,12 @@ public class MenuController {
     @FXML
     protected void initialize() {
         progressIndicator.setVisible(false);
-        System.out.println("hello1");
+        postScroll.getChildren().clear();
+        postScroll.getChildren().add(progressIndicator);
         new Thread(() -> {
             try {
                 posts = Firebase.loadPosts();
                 System.out.println("size:"+posts.size());
-                System.out.println("hello3");
             } catch (ExecutionException | InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -64,12 +58,12 @@ public class MenuController {
                 if(newValue.doubleValue() >= 0.95) postLoader();
         });
         Platform.runLater(() -> profileView.setFill(new ImagePattern(new Image(User.getAccount().profileLink))));
-
     }
+
 
     @FXML
     protected void createPost() throws IOException {
-        Pane p = FXMLLoader.load(Utils.standard.fxmlPath("createPost.fxml"));
+        Pane p = FXMLLoader.load(Utils.standard.fxmlPath("createPost.fxml"), Utils.getBundle());
         Scene scene = new Scene(p, 750, 400);
         createPost = new Stage();
         createPost.setMinWidth(750);
@@ -79,6 +73,12 @@ public class MenuController {
         createPost.setScene(scene);
         createPost.setTitle("Create Post!");
         createPost.setScene(scene);
+        createPost.setOnCloseRequest(windowEvent -> {
+            if (reload) {
+                initialize();
+                reload = false;
+            }
+        });
         createPost.show();
     }
 
@@ -104,7 +104,7 @@ public class MenuController {
         imageProfile.setFill(new ImagePattern(new Image(Firebase.getProfileURL(post.authorUid))));
         scrollRight.setOnAction(actionEvent -> {
             int index = post.images.indexOf(postImageView.getImage())+1;
-            if (index<0||index>=post.images.size()) return;
+            if (index>=post.images.size()) return;
             postImageView.setImage(post.images.get(index));
         });
         scrollLeft.setOnAction(actionEvent -> {
@@ -112,12 +112,10 @@ public class MenuController {
             if (index<0||index>=post.images.size()) return;
             postImageView.setImage(post.images.get(index));
         });
-        System.out.println(3);
         return p;
     }
 
     private Post getPost(String uid) {
-        System.out.println(1);
         return new Post(Firebase.getPost(uid));
     }
 
@@ -137,7 +135,6 @@ public class MenuController {
             if (progressIndicator.isVisible()) return;
             try {
                 Platform.runLater(() -> progressIndicator.setVisible(true));
-                System.out.println(uid);
                 Pane p = loadPost(getPost(uid));
                 Platform.runLater(() -> postScroll.getChildren().add(postScroll.getChildren().size()-1, p));
                 Platform.runLater(() -> progressIndicator.setVisible(false));
@@ -146,9 +143,9 @@ public class MenuController {
     }
 
     private void postLoader() {
+        System.out.println(postCount);
         if (postCount>=posts.size()) return;
         loadPost(posts.get(postCount));
-        System.out.println("currind" + postCount);
         postCount++;
     }
 }
