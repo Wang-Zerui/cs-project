@@ -18,6 +18,7 @@ module com.zerui.csproject.Model {
     requires net.harawata.appdirs;
     requires org.apache.commons.io;
     requires org.apache.commons.lang3;
+    requires org.apache.commons.collections4;
     opens com.zerui.csproject.Controller to javafx.fxml;
     exports com.zerui.csproject;
     opens com.zerui.csproject.Model.Personal to google.cloud.firestore;

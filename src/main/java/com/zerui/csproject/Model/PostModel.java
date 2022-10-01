@@ -1,10 +1,7 @@
 package com.zerui.csproject.Model;
 
-import com.zerui.csproject.Model.Personal.FirebasePostModel;
 import com.zerui.csproject.Model.Personal.Identifiable;
-import com.zerui.csproject.Utils.Firebase;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class PostModel extends Identifiable {
@@ -14,6 +11,7 @@ public class PostModel extends Identifiable {
         super(firebasePostModel.authorUid, firebasePostModel.caption, firebasePostModel.uid, firebasePostModel.time);
         this.imagePosts = firebasePostModel.imagePosts;
         this.likeUid = firebasePostModel.likeUid;
+        System.out.println(likeUid);
     }
 
     public PostModel() {super();}
@@ -21,6 +19,6 @@ public class PostModel extends Identifiable {
     public PostModel(PostModel p) {
         super(p.authorID, p.content, p.id, p.time);
         this.imagePosts = p.imagePosts;
-        this.likeUid = new ArrayList<>();
+        this.likeUid = p.likeUid;
     }
 }

@@ -12,17 +12,19 @@ import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.UserRecord;
 import com.google.firebase.cloud.FirestoreClient;
 import com.google.firebase.cloud.StorageClient;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.zerui.csproject.Model.*;
 import com.zerui.csproject.Model.Personal.AccountModel;
-import com.zerui.csproject.Model.Personal.FirebasePostModel;
+import com.zerui.csproject.Model.FirebasePostModel;
 import com.zerui.csproject.Model.Personal.User;
 import com.zerui.csproject.SplashScreen;
+import javafx.scene.layout.Pane;
+import org.apache.commons.collections4.CollectionUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.time.Instant;
 import java.util.*;
@@ -33,17 +35,20 @@ public class Firebase {
     public static Bucket bucket;
     public static Firestore db;
     public static FirebaseAuth auth;
-    public static void initFirebase() throws IOException, URISyntaxException {
-        File imageSel = new File(SplashScreen.class.getResource("csproj.json").toURI());
-        FileInputStream refreshToken = new FileInputStream(imageSel);
-        FirebaseOptions options = FirebaseOptions.builder()
-                .setCredentials(GoogleCredentials.fromStream(refreshToken))
-                .setStorageBucket("cs-project-60a27.appspot.com")
-                .build();
-        FirebaseApp.initializeApp(options);
-        bucket = StorageClient.getInstance().bucket();
-        db = FirestoreClient.getFirestore();
-        auth = FirebaseAuth.getInstance(FirebaseApp.getInstance());
+    public static void initFirebase() {
+        try {
+            InputStream inputStream = SplashScreen.class.getResourceAsStream("csproj.json");
+            FirebaseOptions options = FirebaseOptions.builder()
+                    .setCredentials(GoogleCredentials.fromStream(inputStream))
+                    .setStorageBucket("cs-project-60a27.appspot.com")
+                    .build();
+            FirebaseApp.initializeApp(options);
+            bucket = StorageClient.getInstance().bucket();
+            db = FirestoreClient.getFirestore();
+            auth = FirebaseAuth.getInstance(FirebaseApp.getInstance());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
     public static String login(String email, String password) {
         try {
@@ -156,15 +161,19 @@ public class Firebase {
         }
         return postID;
     }
-    public static void changeLikeStatus(Post p) { // TODO Implement Like
+    public static void changeLikeStatus(Post p) throws ExecutionException, InterruptedException { // TODO Implement Like
         if (likedPost(p)) {
-
-
+            db.collection("posts").document(p.id).update("likeUid", FieldValue.arrayRemove(p.authorID));
         } else {
-
+            db.collection("posts").document(p.id).update("likeUid", FieldValue.arrayUnion(p.authorID));
         }
     }
-    public static boolean likedPost(Post p) {
-        return p.likeUid.contains(User.getAccount().uuid);
+    public static boolean likedPost(Post p) throws ExecutionException, InterruptedException {
+        ArrayList<String> liked = (ArrayList<String>) db.collection("posts").document(p.id).get().get().get("likeUid");
+        assert liked != null;
+        return CollectionUtils.emptyIfNull(liked).contains(p.authorID);
+    }
+    public static int getNoLikes(Post p) {
+        return p.likeUid.size();
     }
 }

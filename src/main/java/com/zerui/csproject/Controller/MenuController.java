@@ -2,15 +2,18 @@ package com.zerui.csproject.Controller;
 
 import com.zerui.csproject.Model.Personal.User;
 import com.zerui.csproject.Model.Post;
+import com.zerui.csproject.Utils.DEF;
 import com.zerui.csproject.Utils.Firebase;
 import com.zerui.csproject.Utils.Utils;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.image.Image;
@@ -107,6 +110,15 @@ public class MenuController {
         ImageView postImageView = (ImageView) p.lookup("#postImageView");
         ImageView viewComments = (ImageView) p.lookup("#viewComments");
         ImageView like = (ImageView) p.lookup("#like");
+        new Thread(() -> {
+            try {
+                boolean likeStatus = Firebase.likedPost(post);
+                Platform.runLater(() -> like.setImage(likeStatus?DEF.unlikeImage:DEF.likeImage));
+            } catch (ExecutionException | InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }).start();
+        likeCount.setText(String.format("Liked by %d", Firebase.getNoLikes(post)));
         username.setText(Firebase.getUsername(post.authorID));
         postImageView.setImage(post.images.get(0));
         Date date = new Date(post.time*1000);
@@ -126,6 +138,18 @@ public class MenuController {
             if (index<0||index>=post.images.size()) return;
             postImageView.setImage(post.images.get(index));
         });
+        like.setOnMouseClicked(mouseEvent -> new Thread(() -> {
+            try {
+                Platform.runLater(() -> like.setDisable(true));
+                Firebase.changeLikeStatus(post);
+                boolean likeStatus = Firebase.likedPost(post);
+                Platform.runLater(() -> like.setImage(likeStatus?DEF.unlikeImage:DEF.likeImage));
+                Platform.runLater(() -> likeCount.setText(String.format("Liked by %d", Firebase.getNoLikes(post)+(likeStatus?1:-1))));
+                Platform.runLater(() -> like.setDisable(false));
+            } catch (ExecutionException | InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }).start());
         return p;
     }
 
