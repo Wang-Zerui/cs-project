@@ -14,11 +14,11 @@
             <Image url="@../images/aboutProgrammer.png" />
          </image>
       </ImageView>
-      <Label layoutX="328.0" layoutY="107.0" text="About Programmer">
+      <Label layoutX="328.0" layoutY="107.0" text="%about">
          <font>
             <Font name="System Bold" size="26.0" />
          </font>
       </Label>
-      <Label layoutX="302.0" layoutY="136.0" prefHeight="137.0" prefWidth="264.0" text="Commonly known by the name iamnumber4, this programmer decided that it would be a good idea to create a social media app using Firebase. Trivia: the username iamnumber4 comes from the book series &quot;I am number four&quot;. " textOverrun="CLIP" wrapText="true" />
+      <Label layoutX="302.0" layoutY="136.0" prefHeight="137.0" prefWidth="264.0" text="%aboutProgrammer" textOverrun="CLIP" wrapText="true" />
    </children>
 </AnchorPane>
