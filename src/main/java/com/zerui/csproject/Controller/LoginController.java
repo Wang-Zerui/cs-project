@@ -5,6 +5,7 @@ import com.zerui.csproject.Utils.DEF;
 import com.zerui.csproject.Utils.Firebase;
 import com.zerui.csproject.SplashScreen;
 import com.zerui.csproject.Utils.Utils;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -25,21 +26,23 @@ public class LoginController {
     TextField email;
     @FXML
     PasswordField password;
+    @FXML
+    ProgressIndicator loginIndicator;
 //    @FXML
 //    protected void initialize() {
 //
 //    }
     @FXML
-    protected void loginButtonPressed() throws IOException {
-        login();
+    protected void loginButtonPressed() {
+        threadedLogin();
     }
     @FXML
-    protected void emailTyped(KeyEvent keyEvent) throws IOException {
-        if (keyEvent.getCode()== KeyCode.ENTER) login();
+    protected void emailTyped(KeyEvent keyEvent) {
+        if (keyEvent.getCode()==KeyCode.ENTER) threadedLogin();
     }
     @FXML
-    protected void passwordTyped(KeyEvent keyEvent) throws IOException {
-        if (keyEvent.getCode()== KeyCode.ENTER) login();
+    protected void passwordTyped(KeyEvent keyEvent) {
+        if (keyEvent.getCode()==KeyCode.ENTER) threadedLogin();
     }
     @FXML
     protected void signUp() throws IOException {
@@ -79,29 +82,52 @@ public class LoginController {
         stage.setScene(scene);
         stage.show();
     }
-    private void login() throws IOException {
+    private void login() throws IOException, InterruptedException {
+        Platform.runLater(() -> loginIndicator.setVisible(true));
         int status = User.login(email.getText(), password.getText());
+        Thread.sleep(10);
         if (status==2) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Success");
-            Utils.standard.addStyleSheet(alert);
-            alert.showAndWait();
-            Pane p = FXMLLoader.load(Utils.standard.fxmlPath("menuView.fxml"));
-            SplashScreen.getStage().setScene(new Scene(p));
+            Platform.runLater(() -> {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Success");
+                Utils.standard.addStyleSheet(alert);
+                alert.showAndWait();
+                try {
+                    Pane p = FXMLLoader.load(Utils.standard.fxmlPath("menuView.fxml"));
+                    SplashScreen.getStage().setScene(new Scene(p));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
         } else if (status == 1) {
-            ButtonType ok = new ButtonType("Ok", ButtonBar.ButtonData.CANCEL_CLOSE);
-            ButtonType resendEmail = new ButtonType("Resend Email", ButtonBar.ButtonData.OK_DONE);
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Please verify your email!", ok, resendEmail);
-            Utils.standard.addStyleSheet(alert);
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.orElse(ok)==resendEmail) {
-                Firebase.sendVerificationEmail(email.getText());
-                Utils.standard.addStyleSheet(new Alert(Alert.AlertType.INFORMATION, "Sent email!")).showAndWait();
-            }
+            Platform.runLater(() -> {
+                ButtonType ok = new ButtonType("Ok", ButtonBar.ButtonData.CANCEL_CLOSE);
+                ButtonType resendEmail = new ButtonType("Resend Email", ButtonBar.ButtonData.OK_DONE);
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Please verify your email!", ok, resendEmail);
+                Utils.standard.addStyleSheet(alert);
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.orElse(ok)==resendEmail) {
+                    new Thread(() -> {
+                        Firebase.sendVerificationEmail(email.getText());
+                        Platform.runLater(() -> Utils.standard.addStyleSheet(new Alert(Alert.AlertType.INFORMATION, "Sent email!")).showAndWait());
+                    }).start();
+                }
+            });
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Wrong email or password!");
-            Utils.standard.addStyleSheet(alert);
-            alert.show();
+            Platform.runLater(() -> {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Wrong email or password!");
+                Utils.standard.addStyleSheet(alert);
+                Platform.runLater(alert::showAndWait);
+            });
         }
+        Platform.runLater(() -> loginIndicator.setVisible(false));
     }
-
+    private void threadedLogin() {
+        new Thread(() -> {
+            try {
+                login();
+            } catch (IOException | InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }).start();
+    }
 }
