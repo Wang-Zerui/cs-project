@@ -15,6 +15,7 @@ import com.google.firebase.cloud.StorageClient;
 import com.zerui.csproject.Model.Comment;
 import com.zerui.csproject.Model.CommentModel;
 import com.zerui.csproject.Model.Personal.AccountModel;
+import com.zerui.csproject.Model.Personal.FirebasePostModel;
 import com.zerui.csproject.Model.Personal.User;
 import com.zerui.csproject.Model.Post;
 import com.zerui.csproject.Model.PostModel;
@@ -119,7 +120,7 @@ public class Firebase {
         try {
             ApiFuture<DocumentSnapshot> future = db.collection("posts").document(uid).get();
             DocumentSnapshot document = future.get();
-            return document.toObject(PostModel.class);
+            return new PostModel(document.toObject(FirebasePostModel.class));
         } catch (Exception e) {System.out.println(e.getMessage()); return null;}
     }
     public static ArrayList<CommentModel> getComments(String postId) {
@@ -140,7 +141,7 @@ public class Firebase {
         for (File file:selFile) {
             imageLinks.add(Firebase.uploadFile(file, String.format("posts/%s/%s", postID , file.getName())).toString());
         }
-        PostModel model = new PostModel(postID, currUser.uuid, caption, imageLinks, Instant.now().getEpochSecond());
+        FirebasePostModel model = new FirebasePostModel(postID, currUser.uuid, caption, imageLinks, Instant.now().getEpochSecond());
         Map<String, Object> docData = new HashMap<>();
         docData.put("postsArrayUid", Collections.singletonList(postID));
         db.collection("posts").document(postID).set(model);

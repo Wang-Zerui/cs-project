@@ -107,14 +107,15 @@ public class MenuController {
         ImageView postImageView = (ImageView) p.lookup("#postImageView");
         ImageView viewComments = (ImageView) p.lookup("#viewComments");
         ImageView like = (ImageView) p.lookup("#like");
-        username.setText(Firebase.getUsername(post.authorUid));
+        username.setText(Firebase.getUsername(post.authorID));
         postImageView.setImage(post.images.get(0));
         Date date = new Date(post.time*1000);
         SimpleDateFormat sdf = new SimpleDateFormat("MMMM d yyyy h:mm a", Locale.ENGLISH);
         String formattedDate = sdf.format(date);
         timestampLabel.setText(formattedDate);
-        imageProfile.setFill(new ImagePattern(new Image(Firebase.getProfileURL(post.authorUid))));
-        caption.setText(post.caption);
+        System.out.println(post.authorID);
+        imageProfile.setFill(new ImagePattern(new Image(Firebase.getProfileURL(post.authorID))));
+        caption.setText(post.content);
         scrollRight.setOnAction(actionEvent -> {
             int index = post.images.indexOf(postImageView.getImage())+1;
             if (index>=post.images.size()) return;

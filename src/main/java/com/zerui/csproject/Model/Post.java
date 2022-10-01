@@ -27,7 +27,7 @@ public class Post extends PostModel implements Deletable {
     }
 
     private void loadComments() {
-        for (CommentModel i:Firebase.getComments(super.uid)) {
+        for (CommentModel i:Firebase.getComments(super.id)) {
             comments.add(new Comment(i));
         }
     }
