@@ -4,7 +4,7 @@ import com.zerui.csproject.Interface.Deletable;
 
 public class Comment extends CommentModel implements Deletable {
     Comment(CommentModel c) {
-        super(c.authorID, c.message, c.commentID, c.timestamp);
+        super(c.authorID, c.content, c.id, c.time);
     }
     @Override
     public void delete() {

@@ -12,13 +12,10 @@ import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.UserRecord;
 import com.google.firebase.cloud.FirestoreClient;
 import com.google.firebase.cloud.StorageClient;
-import com.zerui.csproject.Model.Comment;
-import com.zerui.csproject.Model.CommentModel;
+import com.zerui.csproject.Model.*;
 import com.zerui.csproject.Model.Personal.AccountModel;
 import com.zerui.csproject.Model.Personal.FirebasePostModel;
 import com.zerui.csproject.Model.Personal.User;
-import com.zerui.csproject.Model.Post;
-import com.zerui.csproject.Model.PostModel;
 import com.zerui.csproject.SplashScreen;
 
 import java.io.File;
@@ -129,7 +126,7 @@ public class Firebase {
             List<QueryDocumentSnapshot> documents = future.get().getDocuments();
             ArrayList<CommentModel> comments = new ArrayList<>();
             for (DocumentSnapshot document : documents) {
-                comments.add(document.toObject(CommentModel.class));
+                comments.add(new CommentModel(document.toObject(FirebaseCommentModel.class)));
             }
             return comments;
         } catch (Exception e) {System.out.println(e.getMessage()); return new ArrayList<>();}

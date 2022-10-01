@@ -1,14 +1,12 @@
 package com.zerui.csproject.Model;
 
-public class CommentModel {
-    public String authorID, message, commentID;
-    public long timestamp;
-    public CommentModel(String authorID, String message, String commentID, long timestamp) {
-        this.authorID = authorID;
-        this.message = message;
-        this.commentID = commentID;
-        this.timestamp = timestamp;
-    }
+import com.zerui.csproject.Model.Personal.Identifiable;
 
-    public CommentModel() {}
+public class CommentModel extends Identifiable {
+    public CommentModel(FirebaseCommentModel firebaseCommentModel) {
+        super(firebaseCommentModel.authorID, firebaseCommentModel.message, firebaseCommentModel.commentID, firebaseCommentModel.timestamp);
+    }
+    public CommentModel(String authorID, String content, String id, long time) {
+        super(authorID, content, id, time);
+    }
 }
