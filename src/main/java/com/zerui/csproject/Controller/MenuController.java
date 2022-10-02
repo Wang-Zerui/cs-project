@@ -4,6 +4,7 @@ import com.zerui.csproject.Model.Personal.User;
 import com.zerui.csproject.Model.Post;
 import com.zerui.csproject.Utils.DEF;
 import com.zerui.csproject.Utils.Firebase;
+import com.zerui.csproject.Utils.StringHolder;
 import com.zerui.csproject.Utils.Utils;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
@@ -21,6 +22,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.time.Instant;
@@ -102,7 +104,7 @@ public class MenuController {
         Label username = (Label) p.lookup("#username");
         Label timestampLabel = (Label) p.lookup("#timestampLabel");
         Label likeCount = (Label) p.lookup("#likeCount");
-        Label caption = (Label) p.lookup("#captionLabel");
+        Text caption = (Text) p.lookup("#captionLabel");
         Button scrollLeft = (Button) p.lookup("#scrollLeft");
         Button scrollRight = (Button) p.lookup("#scrollRight");
         Button postComment = (Button) p.lookup("#postComment");
@@ -162,20 +164,22 @@ public class MenuController {
                 Platform.runLater(() -> {
                     postComment.setVisible(true);
                     sendMessageIndicator.setVisible(false);
+                    commentField.clear();
                 });
             }).start();
         });
         viewComments.setOnMouseClicked(mouseEvent -> {
             try {
-                Pane pn = Utils.standard.loadPane("fxml/viewComments.fxml");
+                StringHolder.getInstance().setString(post.id);
+                ScrollPane pn = Utils.standard.loadPane("fxml/viewComments.fxml");
                 Stage stage = new Stage();
                 Scene scene = new Scene(pn);
                 stage.setScene(scene);
+                stage.show();
                 stage.setMaxWidth(scene.getWidth());
                 stage.setMinWidth(scene.getWidth());
                 stage.setMaxHeight(scene.getHeight());
                 stage.setMinHeight(scene.getHeight());
-                stage.setUserData();
 
             } catch (IOException e) {
                 throw new RuntimeException(e);

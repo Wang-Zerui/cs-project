@@ -134,7 +134,7 @@ public class Firebase {
                 comments.add(new CommentModel(document.toObject(FirebaseCommentModel.class)));
             }
             return comments;
-        } catch (Exception e) {System.out.println(e.getMessage()); return new ArrayList<>();}
+        } catch (Exception e) {System.out.println(Arrays.toString(e.getStackTrace())); return new ArrayList<>();}
     }
     public static void createComment(String authorID, String message, String commentID, long timestamp, String postId) {
         FirebaseCommentModel commentModel = new FirebaseCommentModel(authorID, message, commentID, timestamp);
