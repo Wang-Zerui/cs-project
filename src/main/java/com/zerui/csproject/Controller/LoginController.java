@@ -28,6 +28,8 @@ public class LoginController {
     PasswordField password;
     @FXML
     ProgressIndicator loginIndicator;
+    @FXML
+    Button loginButton;
 //    @FXML
 //    protected void initialize() {
 //
@@ -84,6 +86,7 @@ public class LoginController {
     }
     private void login() throws IOException, InterruptedException {
         Platform.runLater(() -> loginIndicator.setVisible(true));
+        Platform.runLater(() -> loginButton.setDisable(true));
         int status = User.login(email.getText(), password.getText());
         Thread.sleep(10);
         if (status==2) {
@@ -120,6 +123,7 @@ public class LoginController {
             });
         }
         Platform.runLater(() -> loginIndicator.setVisible(false));
+        Platform.runLater(() -> loginButton.setDisable(false));
     }
     private void threadedLogin() {
         new Thread(() -> {

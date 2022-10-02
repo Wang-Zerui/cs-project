@@ -37,7 +37,7 @@
                   <Insets />
                </VBox.margin>
             </PasswordField>
-            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#loginButtonPressed" prefHeight="26.0" prefWidth="241.0" text="%login" VBox.vgrow="ALWAYS">
+            <Button fx:id="loginButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#loginButtonPressed" prefHeight="26.0" prefWidth="241.0" text="%login" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>

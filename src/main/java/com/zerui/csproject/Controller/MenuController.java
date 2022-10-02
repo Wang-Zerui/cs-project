@@ -7,9 +7,11 @@ import com.zerui.csproject.Utils.Firebase;
 import com.zerui.csproject.Utils.Utils;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -20,6 +22,8 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -52,7 +56,6 @@ public class MenuController {
         });
         Platform.runLater(() -> profileView.setFill(new ImagePattern(new Image(User.getAccount().profileLink))));
     }
-
     protected void init() {
         System.out.println("init");
         progressIndicator.setVisible(false);
@@ -90,12 +93,10 @@ public class MenuController {
         });
         createPost.show();
     }
-
     @FXML
     protected void refresh() {
         init();
     }
-
     private Pane loadPost(Post post) throws IOException, ExecutionException, InterruptedException {
         VBox p = Utils.standard.loadPane("fxml/userPost.fxml");
         Label username = (Label) p.lookup("#username");
@@ -110,6 +111,7 @@ public class MenuController {
         ImageView postImageView = (ImageView) p.lookup("#postImageView");
         ImageView viewComments = (ImageView) p.lookup("#viewComments");
         ImageView like = (ImageView) p.lookup("#like");
+        ProgressIndicator sendMessageIndicator = (ProgressIndicator) p.lookup("#sendMessageIndicator");
         new Thread(() -> {
             try {
                 boolean likeStatus = Firebase.likedPost(post);
@@ -150,13 +152,40 @@ public class MenuController {
                 throw new RuntimeException(e);
             }
         }).start());
+        postComment.setOnAction(actionEvent -> {
+            if (commentField.getText().isEmpty()) Utils.standard.addStyleSheet(new Alert(Alert.AlertType.ERROR, "Please fill in comment field")).showAndWait();
+            postComment.setVisible(false);
+            sendMessageIndicator.setVisible(true);
+            System.out.println("what");
+            new Thread(() -> {
+                postComment(commentField.getText(), post.id);
+                Platform.runLater(() -> {
+                    postComment.setVisible(true);
+                    sendMessageIndicator.setVisible(false);
+                });
+            }).start();
+        });
+        viewComments.setOnMouseClicked(mouseEvent -> {
+            try {
+                Pane pn = Utils.standard.loadPane("fxml/viewComments.fxml");
+                Stage stage = new Stage();
+                Scene scene = new Scene(pn);
+                stage.setScene(scene);
+                stage.setMaxWidth(scene.getWidth());
+                stage.setMinWidth(scene.getWidth());
+                stage.setMaxHeight(scene.getHeight());
+                stage.setMinHeight(scene.getHeight());
+                stage.setUserData();
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
         return p;
     }
-
     private Post getPost(String uid) {
         return new Post(Firebase.getPost(uid));
     }
-
 //    private void changeMode() throws FileNotFoundException {
 //        if (isDiscovery) {
 //            explorePostImage.setImage(Utils.standard.loadImage("images/icons/Find-People.png"));
@@ -167,7 +196,6 @@ public class MenuController {
 //        }
 //        isDiscovery = !isDiscovery;
 //    }
-
     private void loadPost(String uid) {
         new Thread(()-> {
             if (progressIndicator.isVisible()) return;
@@ -179,7 +207,9 @@ public class MenuController {
             } catch (IOException | InterruptedException | ExecutionException e) { throw new RuntimeException(e); }
         }).start();
     }
-
+    private void postComment(String comment, String postUid) {
+        Firebase.createComment(User.getAccount().uuid, comment, Firebase.genUUID(), Instant.now().getEpochSecond(), postUid);
+    }
     private void postLoader() {
         System.out.println(postCount);
         if (postCount>=posts.size()) return;

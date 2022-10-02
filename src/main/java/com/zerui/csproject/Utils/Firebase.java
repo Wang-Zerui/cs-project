@@ -136,6 +136,10 @@ public class Firebase {
             return comments;
         } catch (Exception e) {System.out.println(e.getMessage()); return new ArrayList<>();}
     }
+    public static void createComment(String authorID, String message, String commentID, long timestamp, String postId) {
+        FirebaseCommentModel commentModel = new FirebaseCommentModel(authorID, message, commentID, timestamp);
+        db.collection("posts").document(postId).collection("comments").document(commentID).set(commentModel);
+    }
     public static void createPost(ArrayList<File> selFile, String caption) throws IOException {
         AccountModel currUser = User.getAccount();
         String postID = Firebase.genUUID();
