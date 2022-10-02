@@ -20,7 +20,8 @@ public class HelloApplication extends Application {
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
-        Utils.standard.addStyleSheet(new Alert(Alert.AlertType.ERROR, "Password must be between 6 to 15 characters!")).showAndWait();
+        Utils.standard.addStyleSheet(new Alert(Alert.AlertType.ERROR, "Please enter a caption!")).showAndWait();
+        Utils.standard.addStyleSheet(new Alert(Alert.AlertType.ERROR, "Please upload images!")).showAndWait();
     }
 
     public static void main(String[] args) {

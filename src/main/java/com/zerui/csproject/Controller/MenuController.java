@@ -161,7 +161,7 @@ public class MenuController {
             }
         }).start());
         postComment.setOnAction(actionEvent -> {
-            if (commentField.getText().isEmpty()) Utils.standard.addStyleSheet(new Alert(Alert.AlertType.ERROR, "Please fill in comment field")).showAndWait();
+            if (commentField.getText().isEmpty()) Utils.standard.addStyleSheet(new Alert(Alert.AlertType.ERROR, "Please fill in comment field!")).showAndWait();
             postComment.setVisible(false);
             sendMessageIndicator.setVisible(true);
             System.out.println("what");
