@@ -4,6 +4,7 @@ import com.zerui.csproject.Model.Comment;
 import com.zerui.csproject.Model.CommentModel;
 import com.zerui.csproject.Utils.Firebase;
 import com.zerui.csproject.Utils.StringHolder;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Orientation;
 import javafx.scene.control.Separator;
@@ -19,18 +20,26 @@ public class ViewCommentController {
     @FXML
     protected void initialize() {
         String postID = StringHolder.getInstance().getString();
-        ArrayList<Comment> comments = getComments(postID);
-        populate(comments);
+        new Thread(() -> {
+            ArrayList<Comment> comments = getComments(postID);
+            populate(comments);
+        }).start();
     }
     private void populate(ArrayList<Comment> comments) {
-        if (comments.isEmpty()) commentVbox.getChildren().add(new Label("No comments"));
+        Platform.runLater(() -> {
+            if (comments.isEmpty()) commentVbox.getChildren().add(new Label("No comments"));
+        });
         for (int i = 0; i < comments.size(); i ++) {
             Comment comment = comments.get(i);
-            Text commentLabel = new Text(String.format("%s: %s", Firebase.getUsername(comment.authorID), comment.content));
-            commentLabel.setWrappingWidth(290);
-            commentLabel.setTextAlignment(TextAlignment.JUSTIFY);
-            commentVbox.getChildren().add(commentLabel);
-            if (i!=comments.size()-1) commentVbox.getChildren().add(new Separator(Orientation.HORIZONTAL));
+            String username = Firebase.getUsername(comment.authorID);
+            int finalI = i;
+            Platform.runLater(() -> {
+                Text commentLabel = new Text(String.format("%s: %s", username , comment.content));
+                commentLabel.setWrappingWidth(290);
+                commentLabel.setTextAlignment(TextAlignment.JUSTIFY);
+                commentVbox.getChildren().add(commentLabel);
+                if (finalI!=comments.size()-1) commentVbox.getChildren().add(new Separator(Orientation.HORIZONTAL));
+            });
         }
     }
     private ArrayList<Comment> getComments(String postID) {
@@ -41,3 +50,4 @@ public class ViewCommentController {
         return comments;
     }
 }
+

@@ -154,14 +154,14 @@ public class MenuController {
                 Firebase.changeLikeStatus(post);
                 boolean likeStatus = Firebase.likedPost(post);
                 Platform.runLater(() -> like.setImage(likeStatus?DEF.unlikeImage:DEF.likeImage));
-                Platform.runLater(() -> likeCount.setText(String.format("Liked by %d", Firebase.getNoLikes(post)+(likeStatus?1:-1))));
+                Platform.runLater(() -> likeCount.setText(String.format("Liked by %d", Firebase.getNoLikes(post)+(likeStatus?1:0))));
                 Platform.runLater(() -> like.setDisable(false));
             } catch (ExecutionException | InterruptedException e) {
                 throw new RuntimeException(e);
             }
         }).start());
         postComment.setOnAction(actionEvent -> {
-            if (commentField.getText().isEmpty()) Utils.standard.addStyleSheet(new Alert(Alert.AlertType.ERROR, "Please fill in comment field!")).showAndWait();
+            if (commentField.getText().isEmpty()) Utils.standard.addStyleSheet(new Alert(Alert.AlertType.ERROR, "Please fill in comment field")).showAndWait();
             postComment.setVisible(false);
             sendMessageIndicator.setVisible(true);
             System.out.println("what");
@@ -186,7 +186,6 @@ public class MenuController {
                 stage.setMinWidth(scene.getWidth());
                 stage.setMaxHeight(scene.getHeight());
                 stage.setMinHeight(scene.getHeight());
-
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

@@ -12,13 +12,11 @@ import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.UserRecord;
 import com.google.firebase.cloud.FirestoreClient;
 import com.google.firebase.cloud.StorageClient;
-import com.google.firebase.database.GenericTypeIndicator;
 import com.zerui.csproject.Model.*;
 import com.zerui.csproject.Model.Personal.AccountModel;
 import com.zerui.csproject.Model.FirebasePostModel;
 import com.zerui.csproject.Model.Personal.User;
 import com.zerui.csproject.SplashScreen;
-import javafx.scene.layout.Pane;
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.io.File;
@@ -38,6 +36,7 @@ public class Firebase {
     public static void initFirebase() {
         try {
             InputStream inputStream = SplashScreen.class.getResourceAsStream("csproj.json");
+            System.out.println(inputStream);
             FirebaseOptions options = FirebaseOptions.builder()
                     .setCredentials(GoogleCredentials.fromStream(inputStream))
                     .setStorageBucket("cs-project-60a27.appspot.com")
@@ -48,6 +47,7 @@ public class Firebase {
             auth = FirebaseAuth.getInstance(FirebaseApp.getInstance());
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            System.out.println(Arrays.toString(e.getStackTrace()));
         }
     }
     public static String login(String email, String password) {

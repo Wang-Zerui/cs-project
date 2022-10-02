@@ -19,5 +19,4 @@ public class DEF {
     public static ResourceBundle resources_EN = ResourceBundle.getBundle("locales.strings", new Locale("en"));
     public static final Image unlikeImage = new Image(SplashScreen.class.getResourceAsStream("images/icons/Unlike.png"));
     public static final Image likeImage = new Image(SplashScreen.class.getResourceAsStream("images/icons/Like.png"));
-
 }
