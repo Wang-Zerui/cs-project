@@ -129,7 +129,7 @@ public class MenuController {
         }).start();
         if (!Objects.equals(post.authorID, User.getAccount().uuid)) deletePost.setVisible(false);
         likeCount.setText(String.format("Liked by %d", Firebase.getNoLikes(post)));
-        username.setText(Firebase.getUsername(post.authorID));
+        username.setText(String.format("%s (%s)", Firebase.getUsername(post.authorID), Firebase.getName(post.authorID)));
         postImageView.setImage(post.images.get(0));
         Date date = new Date(post.time*1000);
         SimpleDateFormat sdf = new SimpleDateFormat("MMMM d yyyy h:mm a", Locale.ENGLISH);

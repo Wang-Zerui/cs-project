@@ -24,7 +24,7 @@
                   <Insets left="5.0" />
                </HBox.margin>
             </Circle>
-            <Label fx:id="username" text="Label">
+            <Label fx:id="username" text="Label" HBox.hgrow="ALWAYS">
                <HBox.margin>
                   <Insets left="5.0" />
                </HBox.margin>

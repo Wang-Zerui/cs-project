@@ -87,6 +87,12 @@ public class Firebase {
             return db.collection("users").document(uid).get().get().getString("username");
         } catch (Exception e) { return "Fatal Error"; }
     }
+    public static String getName(String uid) {
+        try {
+            return db.collection("users").document(uid).get().get().getString("name");
+        } catch (Exception e) { return "Fatal Error"; }
+
+    }
     public static URL uploadFile(File file, String path) throws IOException {
         InputStream inputStream = new FileInputStream(file);
         Blob b = bucket.create(path, inputStream, Bucket.BlobWriteOption.userProject("cs-project-60a27"));
