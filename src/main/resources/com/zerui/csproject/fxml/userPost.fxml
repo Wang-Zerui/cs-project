@@ -48,14 +48,14 @@
             <ImageView fx:id="postImageView" fitHeight="450.0" fitWidth="445.0" pickOnBounds="true" preserveRatio="true" />
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="scrollLeft" mnemonicParsing="false" style="-fx-background-color: 000000;" text="&lt;" HBox.hgrow="ALWAYS">
+                  <Button fx:id="scrollLeft" mnemonicParsing="false" prefHeight="26.0" prefWidth="45.0" style="-fx-background-color: 000000;" text="&lt;">
                      <HBox.margin>
                         <Insets left="5.0" />
                      </HBox.margin>
                   </Button>
                   <HBox alignment="CENTER_RIGHT" prefHeight="444.0" prefWidth="420.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Button fx:id="scrollRight" mnemonicParsing="false" style="-fx-background-color: 000000;" text="&gt;">
+                        <Button fx:id="scrollRight" mnemonicParsing="false" prefHeight="26.0" prefWidth="40.0" style="-fx-background-color: 000000;" text="&gt;">
                            <HBox.margin>
                               <Insets right="5.0" />
                            </HBox.margin>
