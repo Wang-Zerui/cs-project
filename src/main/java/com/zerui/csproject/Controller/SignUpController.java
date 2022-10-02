@@ -22,7 +22,7 @@ import java.util.regex.Pattern;
 import org.apache.commons.validator.routines.EmailValidator;
 
 public class SignUpController {
-    File imageSel = new File(SplashScreen.class.getResource("images/noprofile.png").toURI());
+    File imageSel;
     @FXML
     TextField name, username, email;
     @FXML
@@ -30,11 +30,11 @@ public class SignUpController {
     @FXML
     ImageView profileView;
 
-    public SignUpController() throws URISyntaxException {}
+    public SignUpController() {}
 
     @FXML
     protected void signUpPressed() throws IOException {
-        if (username.getText().isEmpty()||password.getText().isEmpty()||name.getText().isEmpty()||email.getText().isEmpty()||confirmPassword.getText().isEmpty()) Utils.standard.addStyleSheet(new Alert(Alert.AlertType.ERROR, "Please fill in all blanks!")).showAndWait();
+        if (username.getText().isEmpty()||password.getText().isEmpty()||name.getText().isEmpty()||email.getText().isEmpty()||confirmPassword.getText().isEmpty()||imageSel==null) Utils.standard.addStyleSheet(new Alert(Alert.AlertType.ERROR, "Please fill in all blanks!")).showAndWait();
         else if (Firebase.userExists(username.getText())) Utils.standard.addStyleSheet(new Alert(Alert.AlertType.ERROR, "Username already exists!")).showAndWait();
         else if (!Objects.equals(password.getText(), confirmPassword.getText())) Utils.standard.addStyleSheet(new Alert(Alert.AlertType.ERROR, "Password not the same!")).showAndWait();
         else if (!EmailValidator.getInstance().isValid(email.getText())) Utils.standard.addStyleSheet(new Alert(Alert.AlertType.ERROR, "Email is invalid!")).showAndWait();
