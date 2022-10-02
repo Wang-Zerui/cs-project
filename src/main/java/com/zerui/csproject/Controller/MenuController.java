@@ -191,7 +191,10 @@ public class MenuController {
                 throw new RuntimeException(e);
             }
         });
-        deletePost.setOnAction(actionEvent -> post.delete());
+        deletePost.setOnAction(actionEvent -> {
+            post.delete();
+            init();
+        });
         return p;
     }
     private Post getPost(String uid) {
