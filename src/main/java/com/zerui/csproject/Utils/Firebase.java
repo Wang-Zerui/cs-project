@@ -174,8 +174,7 @@ public class Firebase {
     }
     public static boolean likedPost(Post p) throws ExecutionException, InterruptedException {
         ArrayList<String> liked = (ArrayList<String>) db.collection("posts").document(p.id).get().get().get("likeUid");
-        assert liked != null;
-        return CollectionUtils.emptyIfNull(liked).contains(p.authorID);
+        return CollectionUtils.emptyIfNull(liked).contains(User.getAccount().uuid);
     }
     public static int getNoLikes(Post p) {
         return p.likeUid.size();
