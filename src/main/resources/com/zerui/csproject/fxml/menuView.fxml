@@ -44,6 +44,15 @@
                   </ImageView>
                </graphic>
             </Button>
+            <Button mnemonicParsing="false" onAction="#logout" prefHeight="0.0" prefWidth="0.0" style="-fx-background-color: 000000;">
+               <graphic>
+                  <ImageView fitHeight="22.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons/Logout.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
             <Circle fx:id="profileView" fill="TRANSPARENT" radius="19.0" stroke="WHITE" strokeType="INSIDE">
                <HBox.margin>
                   <Insets right="10.0" />

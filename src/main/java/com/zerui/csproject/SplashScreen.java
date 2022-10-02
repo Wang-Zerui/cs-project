@@ -33,7 +33,7 @@ public class SplashScreen extends Application {
     }
 
     @Override
-    public void init() throws FileNotFoundException {
+    public void init() {
         ImageView splash = new ImageView(new Image(getClass().getResourceAsStream("images/splash.png")));
         loadProgress = new ProgressBar();
         splashLayout = new VBox();
@@ -70,7 +70,6 @@ public class SplashScreen extends Application {
     }
 
     private void showMainStage() throws IOException {
-
         Pane p = FXMLLoader.load(Utils.standard.fxmlPath("loginView.fxml"), DEF.resources_EN);
         Scene scene = new Scene(p);
         stage =  new Stage();

@@ -34,6 +34,6 @@ public class Post extends PostModel implements Deletable {
 
     @Override
     public void delete() {
-        // TODO Implement delete
+        Firebase.deletePost(id);
     }
 }

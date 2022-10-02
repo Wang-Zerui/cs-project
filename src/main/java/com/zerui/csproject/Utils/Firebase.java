@@ -180,4 +180,7 @@ public class Firebase {
     public static int getNoLikes(Post p) {
         return p.likeUid.size();
     }
+    public static void deletePost(String uid) {
+        db.collection("posts").document(uid).delete();
+    }
 }

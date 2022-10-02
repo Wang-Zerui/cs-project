@@ -10,5 +10,5 @@ public abstract class Identifiable {
         this.time = time;
     }
     public Identifiable() {}
-
+    public abstract void create();
 }

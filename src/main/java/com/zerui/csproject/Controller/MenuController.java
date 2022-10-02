@@ -1,7 +1,9 @@
 package com.zerui.csproject.Controller;
 
+import com.zerui.csproject.Model.CommentModel;
 import com.zerui.csproject.Model.Personal.User;
 import com.zerui.csproject.Model.Post;
+import com.zerui.csproject.SplashScreen;
 import com.zerui.csproject.Utils.DEF;
 import com.zerui.csproject.Utils.Firebase;
 import com.zerui.csproject.Utils.StringHolder;
@@ -26,12 +28,9 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
+import java.util.*;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
 public class MenuController {
@@ -99,6 +98,11 @@ public class MenuController {
     protected void refresh() {
         init();
     }
+    @FXML
+    protected void logout() throws IOException {
+        User.logout();
+        SplashScreen.getStage().setScene(new Scene(FXMLLoader.load(Utils.standard.fxmlPath("loginView.fxml"), Utils.getBundle())));
+    }
     private Pane loadPost(Post post) throws IOException, ExecutionException, InterruptedException {
         VBox p = Utils.standard.loadPane("fxml/userPost.fxml");
         Label username = (Label) p.lookup("#username");
@@ -108,6 +112,7 @@ public class MenuController {
         Button scrollLeft = (Button) p.lookup("#scrollLeft");
         Button scrollRight = (Button) p.lookup("#scrollRight");
         Button postComment = (Button) p.lookup("#postComment");
+        Button deletePost = (Button) p.lookup("#deletePost");
         Circle imageProfile = (Circle) p.lookup("#imageProfile");
         TextField commentField = (TextField) p.lookup("#commentField");
         ImageView postImageView = (ImageView) p.lookup("#postImageView");
@@ -122,6 +127,7 @@ public class MenuController {
                 throw new RuntimeException(e);
             }
         }).start();
+        if (!Objects.equals(post.authorID, User.getAccount().uuid)) deletePost.setVisible(false);
         likeCount.setText(String.format("Liked by %d", Firebase.getNoLikes(post)));
         username.setText(Firebase.getUsername(post.authorID));
         postImageView.setImage(post.images.get(0));
@@ -185,6 +191,7 @@ public class MenuController {
                 throw new RuntimeException(e);
             }
         });
+        deletePost.setOnAction(actionEvent -> post.delete());
         return p;
     }
     private Post getPost(String uid) {
@@ -212,7 +219,7 @@ public class MenuController {
         }).start();
     }
     private void postComment(String comment, String postUid) {
-        Firebase.createComment(User.getAccount().uuid, comment, Firebase.genUUID(), Instant.now().getEpochSecond(), postUid);
+        new CommentModel(User.getAccount().uuid, comment, Firebase.genUUID(), Instant.now().getEpochSecond(), postUid).create();
     }
     private void postLoader() {
         System.out.println(postCount);

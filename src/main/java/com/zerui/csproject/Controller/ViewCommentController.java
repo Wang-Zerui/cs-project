@@ -27,7 +27,7 @@ public class ViewCommentController {
         for (int i = 0; i < comments.size(); i ++) {
             Comment comment = comments.get(i);
             Text commentLabel = new Text(String.format("%s: %s", Firebase.getUsername(comment.authorID), comment.content));
-            commentLabel.setWrappingWidth(commentVbox.getWidth());
+            commentLabel.setWrappingWidth(290);
             commentLabel.setTextAlignment(TextAlignment.JUSTIFY);
             commentVbox.getChildren().add(commentLabel);
             if (i!=comments.size()-1) commentVbox.getChildren().add(new Separator(Orientation.HORIZONTAL));

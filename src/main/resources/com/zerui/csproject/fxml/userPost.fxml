@@ -32,6 +32,15 @@
                   <Font size="20.0" />
                </font>
             </Label>
+            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <Button fx:id="deletePost" mnemonicParsing="false" text="Delete Post">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
          </children>
       </HBox>
       <StackPane prefHeight="450.0" prefWidth="0.0">

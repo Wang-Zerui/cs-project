@@ -65,7 +65,7 @@ public class CreatePostController {
         if (captionField.getText().isEmpty()) Utils.standard.addStyleSheet(new Alert(Alert.AlertType.ERROR, "Please enter a caption!")).showAndWait();
         else if (selFile.isEmpty()) Utils.standard.addStyleSheet(new Alert(Alert.AlertType.ERROR, "Please upload images!")).showAndWait();
         else {
-            Firebase.createPost(selFile, captionField.getText());
+            new PostModel(selFile, captionField.getText()).create();
             Utils.standard.addStyleSheet(new Alert(Alert.AlertType.INFORMATION, "Post created successfully!")).showAndWait();
             MenuController.reload = true;
             MenuController.createPost.close();
